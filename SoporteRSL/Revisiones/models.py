@@ -1,5 +1,5 @@
 from django.db import models
-from Investigadores import models
+from Investigadores.models import Investigador
 
 # Create your models here.
 
@@ -30,9 +30,9 @@ class Criterio(models.Model):
 
 
 class Revision(models.Model):
-    meta_de_necesidad_de_informacion = models.Textfield()
-    investigadores = models.ManyToManyField('Investigador')
-    cadena_de_busqueda = models.Charfield(max_length=200,)
+    meta_de_necesidad_de_informacion = models.CharField(max_length=500)
+    investigadores = models.ManyToManyField('Investigadores.Investigador')
+    cadena_de_busqueda = models.CharField(max_length=200,)
     metadatos = models.ManyToManyField("Metadato")
     bibliotecas = models.ManyToManyField("Biblioteca")
     prueba_piloto = models.BooleanField(default=False)
