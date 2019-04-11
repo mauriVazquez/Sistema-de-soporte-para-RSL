@@ -11,5 +11,6 @@ class PreguntaDeInvestigacion(models.Model):
 class Revision(models.Model):
     meta_de_necesidad_de_informacion = models.Textfield()
     investigadores = models.ManyToManyField('Investigador',)
-    cadena_de_busqueda = models.
+    cadena_de_busqueda = models.Charfield(max_length=200,)
+
 
