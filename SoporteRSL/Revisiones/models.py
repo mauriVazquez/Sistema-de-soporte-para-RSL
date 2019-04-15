@@ -7,6 +7,9 @@ class PreguntaDeInvestigacion(models.Model):
     pregunta = models.CharField(max_length=150)
     revision = models.ForeignKey('Revision', on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name_plural="preguntas de investigacion" 
+
 
 class Metadato(models.Model):
     nombre = models.CharField(max_length=50)
@@ -42,8 +45,8 @@ class Revision(models.Model):
     cadena_de_busqueda = models.CharField(max_length=200,)
     metadatos = models.ManyToManyField("Metadato")
     bibliotecas = models.ManyToManyField("Biblioteca")
-    prueba_piloto = models.BooleanField(default=False)
-    fecha_inicio = models.DateField(auto_now=False, auto_now_add=False)
+    prueba_piloto = models.BooleanField(default=False, verbose_name= "¿Se realizara prueba piloto?")
+    fecha_inicio = models.DateField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural="revisiones"
