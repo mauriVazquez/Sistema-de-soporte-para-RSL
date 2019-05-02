@@ -23,6 +23,6 @@ from SoporteRSL.utils import redireccionar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', redireccionar),
-    path('', auth_views.LoginView.as_view(template_name='index.html'), name='login'),
+    path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.auth_logout, name='logout'),
 ]
