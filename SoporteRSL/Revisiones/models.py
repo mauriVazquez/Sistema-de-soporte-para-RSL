@@ -15,13 +15,19 @@ class Metadato(models.Model):
     nombre = models.CharField(max_length=50)
 
     class Meta:
-        verbose_name_plural="metadatos" 
+        verbose_name_plural="metadatos"
+
+    def __str__(self):
+        return '%s' % (self.nombre) 
 
 class Biblioteca(models.Model):
     nombre = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural="bibliotecas"
+
+    def __str__(self):
+        return '%s' % (self.nombre)
 
 class Criterio(models.Model):
 
@@ -40,8 +46,9 @@ class Criterio(models.Model):
 
 
 class Revision(models.Model):
+    titulo = models.CharField(max_length=80)
     meta_de_necesidad_de_informacion = models.CharField(max_length=500)
-    investigadores = models.ManyToManyField('Investigadores.Investigador')
+    investigadores = models.ManyToManyField('Investigadores.Investigador', verbose_name= "Investigadores")
     cadena_de_busqueda = models.CharField(max_length=200,)
     metadatos = models.ManyToManyField("Metadato")
     bibliotecas = models.ManyToManyField("Biblioteca")

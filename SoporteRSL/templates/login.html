@@ -1,12 +1,35 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}Login{% endblock %}
 
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'SoporteRSL/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'SoporteRSL/css/login.css' %}">
+    
+    
+    <title>{% block title %}Sistema de soporte para RSL{% endblock %}</title>
+</head>
+
+<div class="w3-container w3-half w3-margin-top">
 {% block content %}
-  <h2>Login</h2>
-  <form method="post">
+  
+  <form method="post" class="w3-container w3-card-4">
+    <h2>Bienvenido</h2>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+    
+    <p>
+      <label for="id_username">Nombre de Usuario:</Label>
+      <input class="w3-input" type="text" name="username" required autofocus id="id_username">
+    </p>
+    <p>
+      <label for="id_password">Contraseña:</Label>
+      <input class="w3-input" type="password" name="password" required id="id_password">
+    </p>
+    
+    <button type="submit" class="w3-button w3-section w3-teal w3-ripple">Login</button>
   </form>
 {% endblock %}
+</div>
