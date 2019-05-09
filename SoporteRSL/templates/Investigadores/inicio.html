@@ -1,0 +1,22 @@
+{% extends '../base.html' %}
+{% load static %}
+
+
+{% block content %} 
+<div>
+    <h1>Revisiones</h1>
+    <div class="w3-responsive">
+    <table class="w3-table w3-striped">
+        <tr>
+            <th>Titulo</th>
+        </tr>        
+    {% for revision in revisiones %}              
+        <tr>
+            <td>{{ revision.titulo }}</td>
+        </tr>
+    {% endfor %} 
+    </table>
+    </div>   
+        
+</div>
+{% endblock %}

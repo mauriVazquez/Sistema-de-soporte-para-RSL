@@ -57,3 +57,6 @@ class Revision(models.Model):
 
     class Meta:
         verbose_name_plural="revisiones"
+
+    def __str__(self):
+        return '%s' % (self.titulo)

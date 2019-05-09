@@ -3,7 +3,8 @@ from .models import *
 
 
 class RevisionAdmin(admin.ModelAdmin):
-    fields = ['meta_de_necesidad_de_informacion',
+    fields = ['titulo',
+    'meta_de_necesidad_de_informacion',
     'investigadores',
     'cadena_de_busqueda',
     'metadatos',

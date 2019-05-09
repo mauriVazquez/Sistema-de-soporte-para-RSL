@@ -103,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # login redirection
-LOGIN_REDIRECT_URL = '../index'
+LOGIN_REDIRECT_URL = '../inicio'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

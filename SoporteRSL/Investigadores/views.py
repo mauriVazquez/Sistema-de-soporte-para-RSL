@@ -12,10 +12,20 @@ from .models import Investigador
 def inicio(request):
 
     revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
-    investigador = Investigadores.get(usuario = request.user)
+    investigador = Investigador.objects.get(usuario__username = request.user)
 
-    context['revisiones'] = revisiones
+    revisiones_lista = []
 
+    for r in revisiones:
+        dic = {}
+        dic['id'] = r.pk
+        dic['titulo'] = r.titulo,
+        revisiones_lista.append(dic)
+    
+    context = {
+            "title" : 'Revisiones',
+            "revisiones" : revisiones,
+            "datos_r" : revisiones_lista
+            }
 
-
-    return render(request, 'inicio.html', context)
+    return render(request, 'Investigadores/inicio.html', context)
