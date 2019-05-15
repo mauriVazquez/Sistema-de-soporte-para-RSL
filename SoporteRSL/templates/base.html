@@ -9,12 +9,12 @@
     
     <title>{% block title %}Sistema de soporte para RSL{% endblock %}</title>
 </head>
-<body>
+<body onload='AgregarClase()'>
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
         <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-        <a href="#" class="w3-bar-item w3-theme-l1">Sistema de Soporte para Revisiones Sistematicas de Literatura</a>
+        <a href="" class="w3-bar-item w3-theme-l1">Sistema de Soporte para Revisiones Sistematicas de Literatura</a>
     </div>
 </div>
 
@@ -28,7 +28,14 @@
     </a>
     <h4 class="w3-bar-item"><b>Menu</b></h4>
     <a class="w3-bar-item w3-button w3-hover-black" href="#">Revisiones</a>
-    <a class="w3-bar-item w3-button w3-hover-black" href="../Revisiones/Revision_form/">+ Nueva Revision</a>   
+
+    {% for revision in revisiones %}              
+        
+           <a class="w3-bar-item w3-button w3-hover-black" href="../revisiones/{{revision.pk}}">{{ revision.titulo }}</a>
+        
+    {% endfor %}    
+
+    <a class="w3-bar-item w3-button w3-hover-black" href="../revisiones/nueva_revision">+ Nueva Revision</a>   
 </nav>
 
 
@@ -44,5 +51,6 @@
 </div>
 <script src="{% static 'SoporteRSL/js/base.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="{% static 'revisiones/js/revision_form.js' %}"></script>
 </body>
 </html>
