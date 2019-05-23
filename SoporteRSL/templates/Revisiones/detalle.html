@@ -1,0 +1,42 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %} 
+<div class="w3-container">
+    <h1>{{ revision.titulo }}</h1>
+</div>
+<article class="w3-container">
+  <p>{{ revision.meta_de_necesidad_de_informacion }}</p>
+  <p>{{ revision.cadena_de_busqueda }}</p>
+  <p>{{ revision.prueba_piloto }}</p>
+  <p>{{ revision.fecha_inicio }}</p>
+  <hr>
+</article>
+
+<section class="w3-panel">
+  <h3>Investigadores</h3>
+{% for investigador in investigadores %}
+    {{ investigador.nombre }}
+{% endfor %}
+    <hr>
+</section>
+
+<section class="w3-panel">
+  <h3>Bibliotecas Utilizadas</h3>
+{% for biblioteca in bibliotecas %}
+    {{ biblioteca.nombre }}
+
+{% endfor %}
+  <hr>
+</section>
+
+<section class="w3-panel">
+  <h3>Metadatos</h3>
+{% for metadato in metadatos %}
+    {{ metadato.nombre }}
+
+{% endfor %}
+  <hr>
+</section>
+
+{% endblock %}

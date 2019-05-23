@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 
 from SoporteRSL.utils import redireccionar
 from Investigadores.views import inicio
-from Revisiones.views import RevisionCreateView
+from Revisiones.views import RevisionCreateView, detalle
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +28,5 @@ urlpatterns = [
     path('logout/', auth_views.auth_logout, name='logout'),
     path('inicio/', inicio),
     path('revisiones/nueva_revision', RevisionCreateView.as_view(), name='revision_add'),
+    path('revisiones/<int:revision_id>/', detalle, name='detalle'),
 ]

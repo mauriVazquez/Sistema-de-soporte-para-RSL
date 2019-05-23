@@ -16,16 +16,11 @@ def inicio(request):
 
     revisiones_lista = []
 
-    for r in revisiones:
-        dic = {}
-        dic['id'] = r.pk
-        dic['titulo'] = r.titulo,
-        revisiones_lista.append(dic)
+
     
     context = {
             "title" : 'Revisiones',
-            "revisiones" : revisiones,
-            "datos_r" : revisiones_lista
+            "revisiones" : revisiones
             }
 
     return render(request, 'Investigadores/inicio.html', context)
