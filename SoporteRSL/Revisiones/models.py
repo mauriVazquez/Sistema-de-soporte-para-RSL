@@ -20,6 +20,7 @@ class Metadato(models.Model):
     def __str__(self):
         return '%s' % (self.nombre) 
 
+
 class Biblioteca(models.Model):
     nombre = models.CharField(max_length=50)
 
@@ -28,6 +29,7 @@ class Biblioteca(models.Model):
 
     def __str__(self):
         return '%s' % (self.nombre)
+
 
 class Criterio(models.Model):
 
@@ -43,6 +45,13 @@ class Criterio(models.Model):
 
     class Meta:
         verbose_name_plural="Criterios"
+
+
+class Articulo(models.Model):
+    titulo = models.CharField(max_length= 50)
+    revision = models.ForeignKey("Revision", on_delete=models.CASCADE)
+    leido = models.BooleanField(default=False , verbose_name="¿El articulo fue leeido?" )
+    archivo = models.FileField(upload_to="articulos/")
 
 
 class Revision(models.Model):

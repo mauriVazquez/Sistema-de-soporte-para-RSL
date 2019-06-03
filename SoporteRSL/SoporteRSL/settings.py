@@ -129,3 +129,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "SoporteRSL/static"),
 ]
 
+#Media Files (files uploads for users)
+MEDIA_URL = "/media/"                                  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')          

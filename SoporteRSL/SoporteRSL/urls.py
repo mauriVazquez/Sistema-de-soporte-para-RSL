@@ -26,7 +26,7 @@ urlpatterns = [
     path('index/', redireccionar),
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.auth_logout, name='logout'),
-    path('inicio/', inicio),
+    path('inicio/', inicio, name='inicio'),
     path('revisiones/nueva_revision', RevisionCreateView.as_view(), name='revision_add'),
     path('revisiones/<int:revision_id>/', detalle, name='detalle'),
 ]

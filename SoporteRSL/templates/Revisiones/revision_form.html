@@ -4,12 +4,11 @@
 
 {% block content %} 
 
-
 <h1>Crea una nueva revision</h1>
 <form method="post" id= "formulario">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save">
+    <input class="w3-button w3-black w3-hover-green" type="submit" value="Guardar">
 </form>
 
 {% endblock %}

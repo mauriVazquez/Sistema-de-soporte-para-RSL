@@ -39,4 +39,22 @@
   <hr>
 </section>
 
+<section class="w3-panel">
+  <h3>Articulos</h3>
+  <table class="w3-table">
+<tr>
+  <th></th>
+  <th>Titulo</th>
+  <th></th>
+</tr>
+
+{% for articulo in articulos %}
+  <td></td>
+  <td>{{ articulo.titulo }}
+  <td>{{ articulo.leido }}</td>  
+{% endfor %}
+</table>  
+  <hr>
+</section>
+
 {% endblock %}
