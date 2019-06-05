@@ -2,9 +2,44 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
-from Revisiones.models import Revision,Biblioteca,Metadato,Articulo
-from Investigadores.models import Investigador
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+
+from .models import *
+from .forms import * 
+
+@login_required
+def nueva_revision(request):
+    if request.method == 'POST':
+        preguntas_form = PreguntaDeInvestigacionForm(request.POST)
+        revision_form = RevisionForm(request.POST)
+        criterio_form = CriterioForm(request.POST)
+        if preguntas_form.is_valid and revision_form.is_valid:
+            
+            revision_form.save()
+            preguntas_form.save(commit = False)
+            criterio_form.save(commit = False)
+            preguntas_form.revision = revision_form
+            criterio_form.revision = revision_form
+
+            preguntas_form.save()
+            criterio_form.save()
+            
+            return HttpResponseRedirect('/inicio/')
+
+    else:
+        revision_form = RevisionForm()
+        preguntas_form = PreguntaDeInvestigacionForm()
+        criterio_form = CriterioForm()
+
+    revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
+    context = {
+        'revisiones':revisiones,
+        'revision_form': revision_form,
+        'criterio_form': criterio_form,
+        'preguntas_form': preguntas_form
+    }
+    return render(request, 'revisiones/nueva_revision.html', context)
+    
 
 @method_decorator(login_required, name='dispatch')
 class RevisionCreateView(CreateView):
@@ -37,7 +72,6 @@ def detalle(request, revision_id):
             'metadatos': metadatos,
             'articulos': articulos
         }
-
     except Revision.DoesNotExist:
         raise Http404("La revision no existe")
 

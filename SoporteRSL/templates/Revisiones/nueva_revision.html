@@ -1,0 +1,71 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}   
+    
+<div class="w3-container">
+  <h2>Nueva Revision</h2>
+<form action="/revisiones/nueva_revision" method="post">
+ {% csrf_token %}
+  <div class="w3-row">
+    <a href="javascript:void(0)" onclick="ControladorTab(event, 'MetaInformacion');">
+      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Meta de informacion</div>
+    </a>
+    <a href="javascript:void(0)" onclick="ControladorTab(event, 'Preguntas');">
+      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Preguntas de investigacion</div>
+    </a>
+    <a href="javascript:void(0)" onclick="ControladorTab(event, 'protocolo');">
+      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Protocolo de Busqueda</div>
+    </a>
+    <a href="javascript:void(0)" onclick="ControladorTab(event, 'Criterios');">
+      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Criterios</div>
+    </a>
+  </div>
+
+  <div id="MetaInformacion" class="w3-container city" style="display:none">
+    <p>
+      <label for="id_titulo">Titulo:</label>
+      {{ revision_form.titulo }}
+    </p>
+
+    <p>
+      <label for="id_meta_de_necesidad_de_informacion">Meta:</label>
+      {{ revision_form.meta_de_necesidad_de_informacion }}
+    </p>
+
+    <p>
+      <label for="id_investigadores">Investigadores participantes:</label>
+      {{ revision_form.investigadores }}
+    </p>
+
+  </div>
+
+  <div id="Preguntas" class="w3-container city" style="display:none">
+    {{ preguntas_form.as_p }}
+  </div>
+  <div id="protocolo" class="w3-container city" style="display:none">
+    <p>
+      <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
+      {{ revision_form.cadena_de_busqueda }}
+    </p>
+    <p>
+      <label for="id_metadatos">Metadatos:</label>
+      {{ revision_form.metadatos }}
+    </p>
+    <p>
+      <label for="id_bibliotecas">bibliotecas:</label>
+      {{ revision_form.bibliotecas }}
+    </p>
+  </div>
+  <div id="Criterios" class="w3-container city" style="display:none">
+      <div class="w3-container">  
+        {{ criterio_form.as_p }}
+      </div>
+  
+  </div>
+    <input class="w3-hover-green" type="submit" value="Guardar">
+  </form>
+</div>
+
+<script src="{% static 'revisiones/js/nueva_revision.js' %}"></script>
+{% endblock %}
