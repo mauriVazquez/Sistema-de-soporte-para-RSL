@@ -28,7 +28,7 @@ def nueva_revision(request):
 
     else:
         revision_form = RevisionForm()
-        preguntas_form = PreguntaDeInvestigacionForm()
+        preguntas_formset = PreguntaDeInvestigacionFormset()
         criterio_form = CriterioForm()
 
     revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
@@ -36,7 +36,7 @@ def nueva_revision(request):
         'revisiones':revisiones,
         'revision_form': revision_form,
         'criterio_form': criterio_form,
-        'preguntas_form': preguntas_form
+        'preguntas_formset': preguntas_formset
     }
     return render(request, 'revisiones/nueva_revision.html', context)
     

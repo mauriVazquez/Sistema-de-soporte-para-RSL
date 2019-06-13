@@ -15,3 +15,10 @@ function ControladorTab(evt, id) {
   document.getElementById(id).style.display = "block";
   evt.currentTarget.firstElementChild.className += " w3-border-black";
 }
+
+
+$('#add').click(function() {
+	var form_idx = $('#id_form-TOTAL_FORMS').val();
+	$('#preguntas_formset').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+	$('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+});

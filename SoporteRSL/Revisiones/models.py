@@ -52,7 +52,13 @@ class Articulo(models.Model):
     revision = models.ForeignKey("Revision", on_delete=models.CASCADE)
     leido = models.BooleanField(default=False , verbose_name="¿El articulo fue leeido?" )
     archivo = models.FileField(upload_to="articulos/")
+    formulario_de_extraccion = models.FileField(upload_to="formularios_de_extraccion/")
 
+    class Meta:
+        verbose_name_plural = "Articulos"
+
+    def __str__(self):
+        return '%s' % (self.titulo)
 
 class Revision(models.Model):
     titulo = models.CharField(max_length=80)

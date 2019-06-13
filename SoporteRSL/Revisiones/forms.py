@@ -1,6 +1,6 @@
 from django import forms
 from .models import Revision, PreguntaDeInvestigacion, Criterio, Articulo
-
+from django.forms import modelformset_factory
 class RevisionForm(forms.ModelForm):
      class Meta:
         model = Revision
@@ -14,14 +14,19 @@ class RevisionForm(forms.ModelForm):
 
 
 class PreguntaDeInvestigacionForm(forms.ModelForm):
+
     class Meta:
         model = PreguntaDeInvestigacion
         fields = ['pregunta']
+
+PreguntaDeInvestigacionFormset = modelformset_factory(PreguntaDeInvestigacion,fields=('pregunta',),extra=1)    
+
 
 class CriterioForm(forms.ModelForm):
     class Meta:
         model = Criterio
         fields = ['tipo','descripcion']
+
 
 class ArticuloForm(forms.ModelForm):
     
@@ -29,5 +34,4 @@ class ArticuloForm(forms.ModelForm):
         model = Articulo
         fields = ['titulo','archivo','leido']
 
-    
-    
+
