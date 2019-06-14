@@ -41,17 +41,19 @@
 
 <section class="w3-panel">
   <h3>Articulos</h3>
-  <table class="w3-table w3-border">
+  <table class="w3-table w3-border w3-striped">
 <tr>
   <th></th>
   <th>Titulo</th>
-  <th></th>
+  <th>Leido?</th>
+  <th>Formulario de extraccion</th>
 </tr>
 
 {% for articulo in articulos %}
-  <td></td>
+  <td>x</td>
   <td>{{ articulo.titulo }}
-  <td>{{ articulo.leido }}</td>  
+  <td>{{ articulo.leido }}</td>
+  <td></td>  
 {% endfor %}
 </table>  
   <hr>

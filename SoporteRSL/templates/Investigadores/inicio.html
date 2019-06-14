@@ -9,10 +9,16 @@
     <table class="w3-table w3-striped">
         <tr>
             <th>Titulo</th>
-        </tr>        
+            <th>Estado</th>
+            <th>Ultima modificacion</th>
+            <th>Modificado Por</th>
+        </tr>             
     {% for revision in revisiones %}              
         <tr>
             <td>{{ revision.titulo }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
     {% endfor %} 
     </table>
