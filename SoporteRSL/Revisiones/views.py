@@ -9,45 +9,50 @@ from .forms import *
 
 @login_required
 def nueva_revision(request):
-    PreguntaDeInvestigacionFormset = modelformset_factory(PreguntaDeInvestigacion,fields=('pregunta',))
-    CriterioFormset = modelformset_factory(Criterio, fields=('tipo', 'descripcion'))    
+
+
     if request.method == 'POST':
-        
         revision_form = RevisionForm(request.POST)
-        preguntas_formset = PreguntaDeInvestigacionFormset(request.POST, prefix='preguntas')
-        print(preguntas_formset)
-        criterio_formset = CriterioFormset(request.POST, prefix='criterios')
-        if preguntas_formset.is_valid() and revision_form.is_valid() and criterio_formset.is_valid():
+
+        print(request.POST)
+        if revision_form.is_valid():
             
+            investigador = Investigador.objects.get(usuario__username = request.user)
             revision_form.save()
             revision = Revision.objects.latest('pk')
-            preguntas_formset.save(commit = False)
-            criterio_formset.save(commit = False)
 
-            for pregunta in preguntas_formset:    
-                pregunta.revision = revision.pk
+            for x in range((int(request.POST['preguntas-TOTAL_FORMS']))):
+                if request.POST['pregunta-'+str(x)] != "":
+                    pregunta = PreguntaDeInvestigacion()
+                    pregunta.revision = revision
+                    pregunta.pregunta = request.POST['pregunta-'+str(x)]
+                    pregunta.save()
 
-            for criterio in criterio_formset:    
-                criterio.revision = revision.pk
+            for x in range((int(request.POST['criterios-TOTAL_FORMS']))):
+                if request.POST['criterio-'+str(x)+'-descripcion'] != "BORRAR":
+                    criterio = Criterio()
+                    criterio.descripcion = request.POST['criterio-'+str(x)+'-descripcion']
+                    criterio.tipo = request.POST['criterio-'+str(x)+'-tipo']
+                    criterio.revision = revision
+                    criterio.save()
+                    
+            modificacion = Modificacion()
+            modificacion.revision = revision
+            modificacion.investigador = investigador
+            modificacion.save()
 
-            preguntas_formset.save()
-            criterio_formset.save()
-            
             return HttpResponseRedirect('/inicio/')
-
+        else:
+            return HttpResponseRedirect('/inicio/')
     else:
         revision_form = RevisionForm()
-        preguntas_formset = PreguntaDeInvestigacionFormset(prefix='preguntas')
-        criterio_formset = CriterioFormset(prefix='criterios')
+
 
     revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
-    context = {
+    return render(request, 'revisiones/nueva_revision.html', {
         'revisiones':revisiones,
         'revision_form': revision_form,
-        'criterio_formset': criterio_formset,
-        'preguntas_formset': preguntas_formset
-    }
-    return render(request, 'revisiones/nueva_revision.html', context)
+    })
     
 
 @method_decorator(login_required, name='dispatch')

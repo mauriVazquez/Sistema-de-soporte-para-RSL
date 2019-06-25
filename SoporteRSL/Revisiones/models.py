@@ -10,6 +10,8 @@ class PreguntaDeInvestigacion(models.Model):
     class Meta:
         verbose_name_plural="preguntas de investigacion" 
 
+    def __str__(self):
+        return '%s -- %s' % (self.pregunta,self.revision) 
 
 class Metadato(models.Model):
     nombre = models.CharField(max_length=50)
@@ -41,10 +43,13 @@ class Criterio(models.Model):
 
     tipo = models.CharField(max_length=2, choices=TIPO_DE_CRITERIO_CHOICE, default='inclusion')
     descripcion = models.CharField(max_length=200)
-    revison = models.ForeignKey("Revision", on_delete=models.CASCADE)
+    revision = models.ForeignKey("Revision", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural="Criterios"
+
+    def __str__(self):
+        return '%s - %s' % (self.tipo, self.descripcion)
 
 
 class Articulo(models.Model):
@@ -60,7 +65,25 @@ class Articulo(models.Model):
     def __str__(self):
         return '%s' % (self.titulo)
 
+class Modificacion(models.Model):
+    revision = models.ForeignKey("Revision", on_delete=models.CASCADE)
+    investigador = models.ForeignKey('Investigadores.Investigador', on_delete=models.CASCADE)
+    fecha = models.DateField(auto_now_add=True)
+    descripcion = models.CharField(max_length=150)
+
+    class Meta:
+        verbose_name_plural = "Modificaciones"
+
+    def __str__(self):
+        return 'Modificacion - %s - revision - %s' % (self.fecha,self.revision)
+
 class Revision(models.Model):
+    ESTADO_CHOICE=(
+        ('A1', 'Actividad 1'),
+        ('A2', 'Actividad 2'),
+        ('A3', 'Actividad 3')
+    )
+
     titulo = models.CharField(max_length=80)
     meta_de_necesidad_de_informacion = models.CharField(max_length=500)
     investigadores = models.ManyToManyField('Investigadores.Investigador', verbose_name= "Investigadores")
@@ -68,6 +91,7 @@ class Revision(models.Model):
     metadatos = models.ManyToManyField("Metadato")
     bibliotecas = models.ManyToManyField("Biblioteca")
     prueba_piloto = models.BooleanField(default=False, verbose_name= "¿Se realizara prueba piloto?")
+    estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default='Actividad 1')
     fecha_inicio = models.DateField(auto_now_add=True)
 
     class Meta:

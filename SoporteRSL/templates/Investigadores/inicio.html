@@ -16,9 +16,10 @@
     {% for revision in revisiones %}              
         <tr>
             <td>{{ revision.titulo }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ revision.estado }}</td>
+            <td>{{ modificaciones.0.fecha }}</td>
+            <td>{{ modificaciones.0.investigador }}</td>
+            {{ modificaciones.pop() }}
         </tr>
     {% endfor %} 
     </table>

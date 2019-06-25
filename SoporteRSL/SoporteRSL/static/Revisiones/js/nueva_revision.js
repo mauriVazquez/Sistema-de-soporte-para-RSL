@@ -18,7 +18,6 @@ function ControladorTab(evt, id) {
 
 $(document).ready(function () {
 
-  $('#tabla_criterios').tablesorter(); 
 
   $('#add').click(function(e){
     e.preventDefault();
@@ -27,8 +26,8 @@ $(document).ready(function () {
 
     $('#nuevas_preguntas').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
 
-    $('#id_preguntas-'+form_idx+'-pregunta').val($('#id_preguntas-0-pregunta').val());
-    $('#id_preguntas-0-pregunta').val("");
+    $('#pregunta-'+form_idx+'').val($('#pregunta-0').val());
+    $('#pregunta-0').val("");
 
     $('#id_preguntas-TOTAL_FORMS').val(parseInt(form_idx) + 1);
     
@@ -37,37 +36,44 @@ $(document).ready(function () {
   $(document).on('click', '.remove', function(e) {
     e.preventDefault();
       
+    $(this).parent().parent().find('input').val("BORRAR");
     //var form_idx = $('#id_preguntas-TOTAL_FORMS').val();
     //$('#id_preguntas-TOTAL_FORMS').val(parseInt(form_idx) - 1);
-    $(this).parent().parent().remove()
+    $(this).parent().parent().hide()
   });
 
  $('#insertar_criterio').click(function(e){
 
     e.preventDefault();
     var form_idx = $('#id_criterios-TOTAL_FORMS').val();
-    $('#nuevos_criterios').append($('<div id="id_criterios-'+form_idx+'-div"></div>').append($('#criterio_empty_form').html().replace(/__prefix__/g, form_idx)));
-    $('#id_criterios-'+form_idx+'-descripcion').val($('#id_criterios-0-descripcion').val());
-    $('#id_criterios-'+form_idx+'-tipo').val($('#id_criterios-0-tipo').val());
 
-
-    var nuevo_criterio = '<td>'+$('#id_criterios-0-descripcion').val()+"</td>";
-    nuevo_criterio += '<td>'+$('#id_criterios-0-tipo').val()+"</td>"
-    nuevo_criterio +='<td id="id_criterios-'+form_idx+'-"><i class="fa fa-remove borrar-linea"></i></td>'
-    var tr = $('<tr></tr>').append(nuevo_criterio);
+    $('#nuevos_criterios').append($('<div id="id_criterio-'+form_idx+'-div" class="criterio"></div>').append($('#criterio_empty_form').html().replace(/__prefix__/g, form_idx)));
+    $('#id_criterio-'+form_idx+'-descripcion').val($('#id_criterio-__prefix__-descripcion').val());
+    $('#id_criterio-'+form_idx+'-tipo').val($('#id_criterio-__prefix__-tipo').val());
     
-    $('#id_criterios-0-descripcion').val("");
+    
+    
+    
+    var nuevo_criterio = '<td>'+$('#id_criterio-__prefix__-descripcion').val()+"</td>";
+    nuevo_criterio += '<td>'+$('#id_criterio-__prefix__-tipo').val()+"</td>"
+    nuevo_criterio +='<td id="id_criterio-'+form_idx+'-"><i class="fa fa-remove borrar-linea"></i></td>'
+    var tr = $('<tr></tr>').append(nuevo_criterio);
+
+    $('#id_criterio-__prefix__-descripcion').val("");
     $('#id_criterios-TOTAL_FORMS').val(parseInt(form_idx) + 1);
     $('#tabla_criterios').append(tr);
  })
 
  $(document).on('click', '.borrar-linea', function(e) {
-  e.preventDefault();
-  $('#'+$(this).parent().attr('id')+'div').remove();  
-  //var form_idx = $('#id_criterios-TOTAL_FORMS').val();
-  //$('#id_criterios-TOTAL_FORMS').val(parseInt(form_idx) - 1);
-  $(this).parent().parent().remove()
-  
+    e.preventDefault();
+
+    //$('#'+$(this).parent().attr('id')+'div').hide();
+    $('#'+$(this).parent().attr('id')+'descripcion').val("BORRAR"); 
+
+    //var form_idx = $('#id_criterios-TOTAL_FORMS').val();
+    //$('#id_criterios-TOTAL_FORMS').val(parseInt(form_idx) - 1);
+    $(this).parent().parent().hide();
+    
 });
 
 

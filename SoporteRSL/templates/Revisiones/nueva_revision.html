@@ -5,7 +5,7 @@
     
 <div class="w3-container">
   <h2>Nueva Revision</h2>
-  <form action="/revisiones/nueva_revision" method="POST">
+  <form action="/revisiones/nueva_revision" method="post">
   {% csrf_token %}
   <div class="w3-row">
     <a href="javascript:void(0)" onclick="ControladorTab(event, 'MetaInformacion');">
@@ -41,14 +41,12 @@
 
   <div id="Preguntas" class="w3-container w3-padding-16 city" style="display:none">
     <h4>Preguntas de investigacion</h4>
-      {{ preguntas_formset.management_form }}
+    <input type="hidden" name="preguntas-TOTAL_FORMS" value="1" id="id_preguntas-TOTAL_FORMS">  
     <div class="w3-row " id="preguntas_formset">
       <div id="nuevas_preguntas">
       </div>
       <div class="w3-col w3-margin-bottom" style="width:94%">
-        {% for preguntas_form in preguntas_formset %}
-          {{ preguntas_form.pregunta }}
-        {% endfor %}
+        <input type="text" name="pregunta-0" maxlength="150" id="pregunta-0" class="w3-input w3-border w3-round">
       </div>
       <div class="w3-col" style="width:6%">
         <button class="w3-button w3-circle w3-green w3-right" id="add">+</button>
@@ -75,18 +73,28 @@
 
   <div id="Criterios" class="w3-container city" style="display:none">
     <h4>Incluir criterio:</h4>
-    {{ criterio_formset.management_form }}
+    <input type="hidden" name="criterios-TOTAL_FORMS" value="0" id="id_criterios-TOTAL_FORMS">
       <div class="w3-container w3-margin-bottom"> 
         <div id="nuevos_criterios" style="display:none">
       </div>
-        {% for criterio_form in criterio_formset %}
-          {{ criterio_form }}
-        {% endfor %}
+      <div id="criterio_empty_form">
+        <label for="id_criterio-__prefix__-tipo">Tipo:</label>
+        <select name="criterio-__prefix__-tipo" id="id_criterio-__prefix__-tipo" class="w3-select w3-border">
+          <option value="IN">inclusion</option>
+
+          <option value="EX">exclusion</option>
+
+          <option value="CA">calidad</option>
+
+        </select>
+        <label for="id_criterios-__prefix__-descripcion">Descripcion:</label>
+        <input type="text" name="criterio-__prefix__-descripcion" maxlength="200" id="id_criterio-__prefix__-descripcion" class="w3-input w3-border w3-round"><input type="hidden" name="criterios-__prefix__-id" id="id_criterios-__prefix__-id" class="w3-input w3-border w3-round">
+      </div>
         <button class="w3-button w3-hover-green w3-right w3-margin-top w3-grey" id="insertar_criterio">Insertar criterio</button>
       </div>
     <h4>Criterios</h4>
       <div class="w3-container w3-margin-bottom">
-        <table class="w3-table w3-striped w3-border tablesorter" id="tabla_criterios">
+        <table class="w3-table w3-striped w3-border" id="tabla_criterios">
         <thead>
         <tr>
             <th>Descripcion</th>
@@ -105,14 +113,12 @@
   </form>
 </div>
 
-<div id="criterio_empty_form" style="display:none">
-        {{ criterio_formset.empty_form }}
-</div>
+
 
 <div id="empty_form" style="display:none">
   <div>
   <div class="w3-col w3-margin-bottom" style="width:94%">
-        {{ preguntas_formset.empty_form.pregunta }}
+        <input type="text" name="pregunta-__prefix__" maxlength="150" id="pregunta-__prefix__" class="w3-input w3-border w3-round">
   </div>
   <div class="w3-col" style="width:6%">
         <button class="w3-button w3-circle w3-red w3-right remove">-</button>
