@@ -1,6 +1,8 @@
 from django import forms
 from .models import Revision, PreguntaDeInvestigacion, Criterio, Articulo
 from django.forms import modelformset_factory
+
+
 class RevisionForm(forms.ModelForm):
      class Meta:
         model = Revision
@@ -18,8 +20,6 @@ class PreguntaDeInvestigacionForm(forms.ModelForm):
     class Meta:
         model = PreguntaDeInvestigacion
         fields = ['pregunta']
-
-PreguntaDeInvestigacionFormset = modelformset_factory(PreguntaDeInvestigacion,fields=('pregunta',),extra=1)    
 
 
 class CriterioForm(forms.ModelForm):

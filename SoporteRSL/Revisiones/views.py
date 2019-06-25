@@ -9,33 +9,42 @@ from .forms import *
 
 @login_required
 def nueva_revision(request):
+    PreguntaDeInvestigacionFormset = modelformset_factory(PreguntaDeInvestigacion,fields=('pregunta',))
+    CriterioFormset = modelformset_factory(Criterio, fields=('tipo', 'descripcion'))    
     if request.method == 'POST':
-        preguntas_form = PreguntaDeInvestigacionForm(request.POST)
+        
         revision_form = RevisionForm(request.POST)
-        criterio_form = CriterioForm(request.POST)
-        if preguntas_form.is_valid and revision_form.is_valid:
+        preguntas_formset = PreguntaDeInvestigacionFormset(request.POST, prefix='preguntas')
+        print(preguntas_formset)
+        criterio_formset = CriterioFormset(request.POST, prefix='criterios')
+        if preguntas_formset.is_valid() and revision_form.is_valid() and criterio_formset.is_valid():
             
             revision_form.save()
-            preguntas_form.save(commit = False)
-            criterio_form.save(commit = False)
-            preguntas_form.revision = revision_form
-            criterio_form.revision = revision_form
+            revision = Revision.objects.latest('pk')
+            preguntas_formset.save(commit = False)
+            criterio_formset.save(commit = False)
 
-            preguntas_form.save()
-            criterio_form.save()
+            for pregunta in preguntas_formset:    
+                pregunta.revision = revision.pk
+
+            for criterio in criterio_formset:    
+                criterio.revision = revision.pk
+
+            preguntas_formset.save()
+            criterio_formset.save()
             
             return HttpResponseRedirect('/inicio/')
 
     else:
         revision_form = RevisionForm()
-        preguntas_formset = PreguntaDeInvestigacionFormset()
-        criterio_form = CriterioForm()
+        preguntas_formset = PreguntaDeInvestigacionFormset(prefix='preguntas')
+        criterio_formset = CriterioFormset(prefix='criterios')
 
     revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
     context = {
         'revisiones':revisiones,
         'revision_form': revision_form,
-        'criterio_form': criterio_form,
+        'criterio_formset': criterio_formset,
         'preguntas_formset': preguntas_formset
     }
     return render(request, 'revisiones/nueva_revision.html', context)
