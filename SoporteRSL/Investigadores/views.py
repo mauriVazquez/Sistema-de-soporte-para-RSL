@@ -18,10 +18,13 @@ def inicio(request):
     for revision in revisiones:
             modificaciones.append(Modificacion.objects.filter(revision__pk = revision.pk).latest('fecha'))
 
+    lista = zip(revisiones, modificaciones)
+
     context = {
             "title" : 'Revisiones',
             "revisiones" : revisiones,
-            "modificaciones": modificaciones
+            "modificaciones": modificaciones,
+            "lista" : lista
             }
 
     return render(request, 'Investigadores/inicio.html', context)

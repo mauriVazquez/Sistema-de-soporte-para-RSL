@@ -1,6 +1,7 @@
 
 
 document.getElementById('MetaInformacion').style.display = "block";
+document.getElementById('MetaInformacion').firstElementChild.className += " w3-border-black";
 
 function ControladorTab(evt, id) {
   var i, x, tablinks;

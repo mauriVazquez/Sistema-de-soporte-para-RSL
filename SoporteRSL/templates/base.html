@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css"> -->
+    <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css"> -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="{% static 'SoporteRSL/css/base.css' %}">
@@ -14,7 +16,7 @@
 <body onload='AgregarClase()'>
 <!-- Navbar -->
 <div class="w3-top">
-    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <div class="w3-bar w3-black w3-top w3-left-align w3-large">
         <a class="w3-bar-item w3-button" href="{% url 'inicio' %}">Sistema de Soporte para Revisiones Sistematicas de Literatura</a>
         
         <div class="w3-dropdown-hover w3-right">
@@ -53,7 +55,7 @@
 <div class="w3-main" style="margin-left:250px">
 
     <div class="w3-row w3-padding-64">
-        <div class="w3-container" style="width:85%">
+        <div class="w3-container" id="id_info" style="width:85%">
             {% block content %}{% endblock %}
         </div>
     </div>
@@ -61,6 +63,6 @@
 
 </div>
 <script src="{% static 'SoporteRSL/js/base.js' %}"></script>
-<script src="{% static 'revisiones/js/revision_form.js' %}"></script>
+<script src="{% static 'SoporteRSL/js/dropzone.js' %}"></script>
 </body>
 </html>

@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 
 from .utils import redireccionar
 from Investigadores.views import inicio
-from Revisiones.views import RevisionCreateView, detalle, nueva_revision
+from Revisiones.views import RevisionCreateView, detalle, nueva_revision, crear_formulario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,5 @@ urlpatterns = [
     #path('revisiones/nueva_revision', RevisionCreateView.as_view(), name='revision_add'),
     path('revisiones/nueva_revision', nueva_revision , name='nueva-revision'),
     path('revisiones/<int:revision_id>/', detalle, name='detalle'),
+    path('revisiones/crear_formulario/<int:revision_id>/', crear_formulario, name='crear-formulario'),
 ]

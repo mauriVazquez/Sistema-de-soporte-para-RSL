@@ -2,28 +2,28 @@
 {% load static %}
 
 
-{% block content %} 
+{% block content %}
 <div>
     <h1>Revisiones</h1>
     <div class="w3-responsive">
-    <table class="w3-table w3-striped">
-        <tr>
-            <th>Titulo</th>
-            <th>Estado</th>
-            <th>Ultima modificacion</th>
-            <th>Modificado Por</th>
-        </tr>             
-    {% for revision in revisiones %}              
-        <tr>
-            <td>{{ revision.titulo }}</td>
-            <td>{{ revision.estado }}</td>
-            <td>{{ modificaciones.0.fecha }}</td>
-            <td>{{ modificaciones.0.investigador }}</td>
-            {{ modificaciones.pop() }}
-        </tr>
-    {% endfor %} 
-    </table>
-    </div>   
-        
+        <table class="w3-table w3-striped">
+            <tr>
+                <th>Titulo</th>
+                <th>Estado</th>
+                <th>Ultima modificacion</th>
+                <th>Modificado Por</th>
+            </tr>
+            {% for revision, modificacion in lista %}
+            <tr>
+                <td>{{ revision.titulo }}</td>
+                <td>{{ revision.estado }}</td>
+                <td>{{ modificacion.fecha }}</td>
+                <td>{{ modificacion.investigador }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 </div>
 {% endblock %}

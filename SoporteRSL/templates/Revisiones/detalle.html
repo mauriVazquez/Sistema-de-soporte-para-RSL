@@ -1,68 +1,130 @@
 {% extends '../base.html' %}
 {% load static %}
 
-{% block content %} 
-<div class="w3-container">
-    <h1>{{ revision.titulo }}</h1>
+{% block content %}
+<div class="w3-container w3-card">
+  <h1 class="w3-center w3-theme-l4">{{ revision.titulo }}</h1>
+
+  <article class="w3-container">
+
+    <p><b>Meta: </b> {{ revision.meta_de_necesidad_de_informacion }}</p>
+    <p><b>Fecha incial: </b> {{ revision.fecha_inicio }}</p>
+    <p><b>Estado actual de la revision: </b> {{ revision.estado }}</p>
+
+  </article>
 </div>
-<article class="w3-container">
-  <p>{{ revision.meta_de_necesidad_de_informacion }}</p>
-  <p>{{ revision.cadena_de_busqueda }}</p>
-  <p>{{ revision.prueba_piloto }}</p>
-  <p>{{ revision.fecha_inicio }}</p>
-  <hr>
-</article>
-
-<section class="w3-panel">
-  <h3>Investigadores</h3>
-{% for investigador in investigadores %}
-    {{ investigador.nombre }}
-{% endfor %}
-    <hr>
+<section class="w3-panel w3-card">
+  <h3 class="w3-center w3-theme-l4">Preguntas de Investigacion</h3>
+  <div class="w3-container w3-margin-bottom">
+    <ul class="w3-ul w3-margin-bottom">
+      {% for pregunta in preguntas %}
+      <li>{{ pregunta.pregunta }}</li>
+      {% endfor %}
+    </ul>
+  </div>
 </section>
 
-<section class="w3-panel">
-  <h3>Bibliotecas Utilizadas</h3>
-{% for biblioteca in bibliotecas %}
-    {{ biblioteca.nombre }}
-
-{% endfor %}
-  <hr>
-</section>
-
-<section class="w3-panel">
-  <h3>Metadatos</h3>
-{% for metadato in metadatos %}
-    {{ metadato.nombre }}
-
-{% endfor %}
-  <hr>
-</section>
-
-<section class="w3-panel">
-  <h3>Articulos</h3>
-  <table class="w3-table w3-border w3-striped">
-<tr>
-  <th></th>
-  <th>Titulo</th>
-  <th>Leido?</th>
-  <th>Formulario de extraccion</th>
-</tr>
-
-{% for articulo in articulos %}
-  <td>x</td>
-  <td>{{ articulo.titulo }}
-  <td>{{ articulo.leido }}</td>
-  <td></td>  
-{% endfor %}
-</table>  
-  <hr>
-</section>
-
-<section class="w3-container">
-  <Button class="w3-button w3-block w3-black">Generar formulario de extraccion de datos</button>
-
+<section class="w3-panel  w3-card">
+  <h3 class="w3-center w3-theme-l4">Protocolo de busqueda</h3>
+  <div class="w3-row w3-margin-bottom">
+    <div class="w3-container w3-third w3-mobile">
+      <h4>Cadena de Busqueda</h4>
+      <p>{{ revision.cadena_de_busqueda }}</p>
+    </div>
+    <div class="w3-container w3-third w3-mobile">
+      <div class="w3-row">
+        <div class= 'w3-col' style="width:80%">
+            <h4>Metadatos</h4>
+        </div>
+        <div class="w3-col"  style="width:20%">
+            <a class="w3-button w3-large w3-circle w3-theme-action">+</a>
+        </div>
+      </div>
+      
+      
+      <ul class="w3-ul ">
+        {% for metadato in metadatos %}
+        <li>{{ metadato }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="w3-container w3-third w3-mobile">
+      <h4>Bibliotecas Utilizadas</h4>
+      <ul class="w3-ul ">
+        {% for biblioteca in bibliotecas %}
+        <li>{{ biblioteca.nombre }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </section>
 
 
+<section class="w3-panel w3-card w3-margin-bottom">
+  <h3 class="w3-center w3-theme-l4">Investigadores</h3>
+  <div class="w3-container w3-margin-bottom">
+    <ul class="w3-ul ">
+      {% for investigador in investigadores %}
+      <li class="w3-bar w3-border">
+        <div class="w3-bar-item">
+          <span class="w3-large">{{ investigador }}</span><br>
+          <span>Rol: </span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+
+
+
+
+  </div>
+</section>
+
+<section class="w3-panel w3-card">
+  <h3 class="w3-center w3-theme-l4">Articulos</h3>
+  <div class="w3-container w3-margin-bottom">
+    <table class="w3-table w3-border w3-striped">
+      <tr>
+        <th></th>
+        <th>Titulo</th>
+        <th>Leido?</th>
+        <th>Formulario de extraccion</th>
+      </tr>
+
+      {% for articulo in articulos %}
+      <td>x</td>
+      <td>{{ articulo.titulo }}
+      <td>{{ articulo.leido }}</td>
+      <td></td>
+      {% endfor %}
+
+    </table>
+    <!--<form action="/file-upload" class="dropzone w3-padding-64 w3-theme-l4">
+      <div class="fallback">
+        <input name="file" type="file" multiple />
+      </div>
+             
+  </div>
+  </form> -->
+  </div>
+  <section class="w3-panel">
+    <!--<Button action="" class="w3-button w3-block w3-black">Generar formulario de extraccion de datos</button>-->
+    <a class="w3-button w3-block w3-black" href="{% url 'crear-formulario' revision.pk %}">Generar formulario de
+      extraccion de datos</a>
+  </section>
+</section>
+
+
+
+<script>
+  $(document).ready(function () {
+
+    if ("{{ revision.estado }}" === "Actividad 1") {
+      //$("body").addClass('w3-theme-l3');
+    }
+
+  });
+
+</script>
 {% endblock %}

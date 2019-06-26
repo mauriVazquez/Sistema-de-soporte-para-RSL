@@ -4,6 +4,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 from django.http import Http404, HttpResponseRedirect
 
+from docx import Document
+from docx.shared import Inches
+import os
+
 from .models import *
 from .forms import * 
 
@@ -35,10 +39,11 @@ def nueva_revision(request):
                     criterio.tipo = request.POST['criterio-'+str(x)+'-tipo']
                     criterio.revision = revision
                     criterio.save()
-                    
+
             modificacion = Modificacion()
             modificacion.revision = revision
             modificacion.investigador = investigador
+            modificacion.descripcion = "Creación"
             modificacion.save()
 
             return HttpResponseRedirect('/inicio/')
@@ -77,6 +82,8 @@ def detalle(request, revision_id):
         investigadores = Investigador.objects.filter(revision__pk = revision_id)
         bibliotecas = Biblioteca.objects.filter(revision__pk = revision_id)
         metadatos = Metadato.objects.filter(revision__pk = revision_id)
+        preguntas = PreguntaDeInvestigacion.objects.filter(revision__pk = revision_id)
+        criterios = Criterio.objects.filter(revision__pk = revision_id)
         articulos = Articulo.objects.filter(revision__pk = revision_id)
         context = {
             'revisiones':revisiones,
@@ -84,9 +91,24 @@ def detalle(request, revision_id):
             'investigadores': investigadores,
             'bibliotecas': bibliotecas,
             'metadatos': metadatos,
-            'articulos': articulos
+            'articulos': articulos,
+            'preguntas': preguntas,
+            'criterios': criterios,
         }
     except Revision.DoesNotExist:
         raise Http404("La revision no existe")
 
     return render(request, 'revisiones/detalle.html', context)
+
+
+def crear_formulario(request, revision_id):
+
+    document = Document()
+    revision = Revision.objects.get(pk=revision_id)
+
+    if not os.path.exists('media/'+str(revision_id)):
+        os.makedirs('media/'+str(revision_id))
+
+    document.save('media/'+str(revision_id)+'/Formulario de extraccion.docx')
+
+    return HttpResponseRedirect('/revisiones/'+ str(revision_id))
