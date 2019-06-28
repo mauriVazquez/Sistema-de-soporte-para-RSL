@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="w3-center">Revision Sistematica De Literatura</h1>
+<div class="w3-container">
+  <p>
+    La Revisión Sistemática de Literatura (RSL) es una metodología de
+    investigación destinada a obtener evidencia desde artículos científicos almacenados
+    en repositorios digitales, la cual debe ser sistemática, reproducible y auditable.
+  </p>
+  <p>
+    Se formulan preguntas de investigación sobre un área temática o fenómeno de
+    interés para buscar, seleccionar, analizar y comunicar toda la investigación relevante,
+    básica o aplicada, necesaria para responder a dichas preguntas.
+  </p>
+  <p>
+    La RSL se puede realizar sobre estudios primarios o secundarios. En cualquier caso, se requiere de procesos y
+    métodos
+    bien establecidos.
+  </p>
+</div>
+<h2>Modelo de Proceso de RSL</h2>
+
+<div class="w3-container">
+
+
+  <p>Este proceso, cuenta con tres actividades principales: (Actividad 1)
+    Diseñar Revisión, (Actividad 2) Ejecutar Revisión y (Actividad 3) Analizar y Documentar Revisión.
+    A su vez, estas actividades agrupan sub-actividades y tareas.</p>
+      
+
+  <div class="actividad w3-container">
+    <button class="w3-btn w3-block w3-light-blue w3-left-align ">
+      <h3>Actividad 1</h3>
+    </button>
+    <div id="actividad1" class="w3-container w3-leftbar w3-border-blue w3-pale-blue w3-hide">
+      <h4>Diseñar Revisión</h4>
+      <p>La actividad 1 tiene como objetivo principal diseñar el protocolo de la RSL.</p>
+      <p> Para ello se deben llevar a cabo todas las tareas y actividades de la siguiente imagen teniendo en cuenta el
+        flujo de las mismas.</p>
+
+      <img src="{% static 'SoporteRSL/img/actividad_1.png' %}" class="w3-image" alt="imagen de la actividad 1">
+
+      <div class="w3-bar w3-padding-16">
+        <a href='{% url "actividad-1" %}' class="w3-button w3-light-blue w3-right">Ver mas... &raquo;</a>
+      </div>
+    </div>
+  </div>
+  <div class="actividad w3-container">
+    <button class="w3-btn w3-block w3-2018-blooming-dahlia w3-left-align ">
+      <h3>Actividad 2</h3>
+    </button>
+    <div id="actividad2" class="w3-container w3-leftbar w3-border-red
+  w3-pale-red w3-hide">
+      <h4>Ejecutar Revisión</h4>
+      <p>El principal objetivo de 2 es realizar la Revision Sistematica de Literatura.</p>
+      <p>Además, para casos primerizos en donde no se repite o replica un estudio, se recomienda primero realizar una
+        prueba piloto con
+        la intención de ajustar el “Protocolo de la RSL” producido en la Actividad 1. La siguiente imagen muestra las
+        distintas sub-actividades y tareas de "A2".</p>
+
+      <img src="{% static 'SoporteRSL/img/actividad_2.png' %}" class="w3-image" alt="imagen de la actividad 2">
+
+      <div class="w3-bar w3-padding-16">
+        <a href='{% url "actividad-2" %}' class="w3-button w3-2018-blooming-dahlia w3-right">Ver mas... &raquo;</a>
+      </div>
+    </div>
+  </div>
+  <div class="actividad w3-container">
+    <button class="w3-btn w3-block w3-grey w3-left-align">
+      <h3>Actividad 3</h3>
+    </button>
+    <div id="actividad3" class="w3-container w3-leftbar w3-light-grey w3-hide">
+      <h4>Analizar y Documentar Revisión</h4>
+      <p>Esta actividad tiene como objetivo principal analizar y comunicar los resultados de la
+          revisión. Además, considerando que una RSL debe ser sistemática, reproducible y auditable,
+          es por ende importante documentar el proceso seguido y los métodos aplicados.</p>
+      <img src="{% static 'SoporteRSL/img/actividad_3.png' %}" class="w3-image" alt="imagen de la actividad 3">
+      <div class="w3-bar w3-padding-16">
+        <a href='{% url "actividad-3" %}' class="w3-button w3-grey w3-right">Ver mas... &raquo;</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  //function myFunction(id) {
+  //var x = document.getElementById(id);
+  //if (x.className.indexOf("w3-show") == -1) {
+  //x.className += " w3-show";
+  //} else {
+  //x.className = x.className.replace(" w3-show", "");
+  //}
+  //}
+
+
+  $(document).ready(function () {
+
+    myAccFunc();
+    $('.actividad').click(function () {
+
+
+      $('.actividad').find('div').removeClass('w3-show');
+      $(this).find('div').toggleClass('w3-show');
+
+    })
+
+  });
+</script>
+
+{% endblock %}

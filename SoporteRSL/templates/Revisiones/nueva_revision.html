@@ -6,110 +6,119 @@
 <div class="w3-container">
   <h2>Nueva Revision</h2>
   <form action="/revisiones/nueva_revision" method="post">
-  {% csrf_token %}
-  <div class="w3-row">
-    <a href="javascript:void(0)" onclick="ControladorTab(event, 'MetaInformacion');">
-      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Meta de informacion</div>
-    </a>
-    <a href="javascript:void(0)" onclick="ControladorTab(event, 'Preguntas');">
-      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Preguntas de investigacion</div>
-    </a>
-    <a href="javascript:void(0)" onclick="ControladorTab(event, 'protocolo');">
-      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Protocolo de Busqueda</div>
-    </a>
-    <a href="javascript:void(0)" onclick="ControladorTab(event, 'Criterios');">
-      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Criterios</div>
-    </a>
-  </div>
+    {% csrf_token %}
+    <div class="w3-row">
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'MetaInformacion','div_meta');" id="a_meta">
+        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_meta'>Meta de informacion</div>
+      </a>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'Preguntas','div_preg');">
+        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_preg'>Especificar preguntas de investigacion</div>
+      </a>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'protocolo','div_proto');">
+        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_proto'>Diseñar protocolo de Busqueda</div>
+      </a>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'Criterios','div_cri');">
+        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_cri'>Definir criterios de seleccion y calidad</div>
+      </a>
+    </div>
 
 
-  <div id="MetaInformacion" class="w3-container city" style="display:none">
-    <p>
-      <label for="id_titulo">Titulo:</label>
-      {{ revision_form.titulo }}
-    </p>
-    <p>
-      <label for="id_meta_de_necesidad_de_informacion">Meta de necesidad de informacion:</label>
-      {{ revision_form.meta_de_necesidad_de_informacion }}
-    </p>
-    <p>
-      <label for="id_investigadores">Investigadores participantes:</label>
-      {{ revision_form.investigadores }}
-    </p>
-  </div>
-
-
-  <div id="Preguntas" class="w3-container w3-padding-16 city" style="display:none">
-    <h4>Preguntas de investigacion</h4>
-    <input type="hidden" name="preguntas-TOTAL_FORMS" value="1" id="id_preguntas-TOTAL_FORMS">  
-    <div class="w3-row " id="preguntas_formset">
-      <div id="nuevas_preguntas">
-      </div>
-      <div class="w3-col w3-margin-bottom" style="width:94%">
-        <input type="text" name="pregunta-0" maxlength="150" id="pregunta-0" class="w3-input w3-border w3-round">
-      </div>
-      <div class="w3-col" style="width:6%">
-        <button class="w3-button w3-circle w3-green w3-right" id="add">+</button>
+    <div id="MetaInformacion" class="w3-container city" style="display:none">
+      <p>
+        <label for="id_titulo">Titulo:</label>
+        {{ revision_form.titulo }}
+      </p>
+      <p>
+        <label for="id_meta_de_necesidad_de_informacion">Meta de necesidad de informacion:</label>
+        {{ revision_form.meta_de_necesidad_de_informacion }}
+      </p>
+      <p>
+        <label for="id_investigadores">Investigadores participantes:</label>
+        {{ revision_form.investigadores }}
+      </p>
+      <div class="w3-bar">
+        <button onclick="ControladorTab(event,'Preguntas','div_preg');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
       </div>
     </div>
-  </div>
 
 
-  <div id="protocolo" class="w3-container city" style="display:none">
-    <p>
-      <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
-      {{ revision_form.cadena_de_busqueda }}
-    </p>
-    <p>
-      <label for="id_metadatos">Metadatos:</label>
-      {{ revision_form.metadatos }}
-    </p>
-    <p>
-      <label for="id_bibliotecas">bibliotecas:</label>
-      {{ revision_form.bibliotecas }}
-    </p>
-  </div>
-
-
-  <div id="Criterios" class="w3-container city" style="display:none">
-    <h4>Incluir criterio:</h4>
-    <input type="hidden" name="criterios-TOTAL_FORMS" value="0" id="id_criterios-TOTAL_FORMS">
-      <div class="w3-container w3-margin-bottom"> 
-        <div id="nuevos_criterios" style="display:none">
+    <div id="Preguntas" class="w3-container w3-padding-16 city" style="display:none">
+      <h4>Preguntas de investigacion</h4>
+      <input type="hidden" name="preguntas-TOTAL_FORMS" value="1" id="id_preguntas-TOTAL_FORMS">  
+      <div class="w3-row " id="preguntas_formset">
+        <div id="nuevas_preguntas">
+        </div>
+        <div class="w3-col w3-margin-bottom" style="width:94%">
+          <input type="text" name="pregunta-0" maxlength="150" id="pregunta-0" class="w3-input w3-border w3-round">
+        </div>
+        <div class="w3-col" style="width:6%">
+          <button class="w3-button w3-circle w3-green w3-right" id="add">+</button>
+        </div>
       </div>
-      <div id="criterio_empty_form">
+      <div class="w3-bar">
+        <button onclick="ControladorTab(event,'MetaInformacion','div_meta');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
+        <button onclick="ControladorTab(event,'protocolo','div_proto');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+      </div>
+    </div>
+
+
+    <div id="protocolo" class="w3-container city" style="display:none">
+      <p>
+        <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
+        {{ revision_form.cadena_de_busqueda }}
+      </p>
+      <p>
+        <label for="id_metadatos">Metadatos:</label>
+        {{ revision_form.metadatos }}
+      </p>
+      <p>
+        <label for="id_bibliotecas">bibliotecas:</label>
+        {{ revision_form.bibliotecas }}
+      </p>
+      <div class="w3-bar">
+        <button onclick="ControladorTab(event,'Preguntas','div_preg');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
+        <button onclick="ControladorTab(event,'Criterios','div_cri');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+      </div>
+    </div>
+
+
+    <div id="Criterios" class="w3-container city" style="display:none">
+      <h4>Incluir criterio:</h4>
+      <input type="hidden" name="criterios-TOTAL_FORMS" value="0" id="id_criterios-TOTAL_FORMS">
+        <div class="w3-container w3-margin-bottom"> 
+          <div id="nuevos_criterios" style="display:none">
+        </div>
+        <div id="criterio_empty_form">
         <label for="id_criterio-__prefix__-tipo">Tipo:</label>
         <select name="criterio-__prefix__-tipo" id="id_criterio-__prefix__-tipo" class="w3-select w3-border">
-          <option value="IN">inclusion</option>
-
-          <option value="EX">exclusion</option>
-
-          <option value="CA">calidad</option>
-
+           <option value="IN">inclusion</option>
+           <option value="EX">exclusion</option>
+           <option value="CA">calidad</option>
         </select>
         <label for="id_criterios-__prefix__-descripcion">Descripcion:</label>
         <input type="text" name="criterio-__prefix__-descripcion" maxlength="200" id="id_criterio-__prefix__-descripcion" class="w3-input w3-border w3-round"><input type="hidden" name="criterios-__prefix__-id" id="id_criterios-__prefix__-id" class="w3-input w3-border w3-round">
       </div>
         <button class="w3-button w3-hover-green w3-right w3-margin-top w3-grey" id="insertar_criterio">Insertar criterio</button>
       </div>
-    <h4>Criterios</h4>
-      <div class="w3-container w3-margin-bottom">
-        <table class="w3-table w3-striped w3-border" id="tabla_criterios">
-        <thead>
-        <tr>
-            <th>Descripcion</th>
-            <th>Tipo</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody id="body_criterios">
-        </tbody>
-        </table>
-      </div>
-  </div>
-
-  
-    <input class="w3-hover-green" type="submit" value="Guardar">
+      <h4>Criterios</h4>
+        <div class="w3-container w3-margin-bottom">
+          <table class="w3-table w3-striped w3-border" id="tabla_criterios">
+          <thead>
+          <tr>
+              <th>Descripcion</th>
+              <th>Tipo</th>
+              <th></th>
+          </tr>
+          </thead>
+          <tbody id="body_criterios">
+          </tbody>
+          </table>
+        </div>
+        <div class="w3-bar">
+        <button onclick="ControladorTab(event,'protocolo','div_proto');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
+        </div>
+        <input class="w3-hover-green w3-margin-top" type="submit" value="Guardar">
+    </div>
   </form>
 </div>
 

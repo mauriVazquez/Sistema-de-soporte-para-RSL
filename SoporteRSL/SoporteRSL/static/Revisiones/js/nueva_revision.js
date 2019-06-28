@@ -1,10 +1,7 @@
 
-
-document.getElementById('MetaInformacion').style.display = "block";
-document.getElementById('MetaInformacion').firstElementChild.className += " w3-border-black";
-
-function ControladorTab(evt, id) {
+function ControladorTab(event, id, div_id) {
   var i, x, tablinks;
+  event.preventDefault();
   x = document.getElementsByClassName("city");
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none";
@@ -14,11 +11,12 @@ function ControladorTab(evt, id) {
     tablinks[i].className = tablinks[i].className.replace(" w3-border-black", "");
   }
   document.getElementById(id).style.display = "block";
-  evt.currentTarget.firstElementChild.className += " w3-border-black";
+  document.getElementById(div_id).className += " w3-border-black";
 }
 
 $(document).ready(function () {
 
+  $('#a_meta').click();
 
   $('#add').click(function(e){
     e.preventDefault();

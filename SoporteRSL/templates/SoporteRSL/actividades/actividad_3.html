@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="w3-center">Actividad 3 - Analizar y Documentar Revisión</h1>
+
+<p>Descripcion</p>
+<h3>Flujo de actividades y tareas</h3>
+
+<div class="w3-container">
+<img src="{% static 'SoporteRSL/img/actividad_3_io.png' %}" class="w3-image" alt="imagen de la actividad 3 con entradas y salidas">
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    myAccFunc();
+
+    $('#act3btn').addClass('w3-grey')
+
+  });
+</script>
+
+{% endblock %}

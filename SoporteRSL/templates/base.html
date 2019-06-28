@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2017.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2018.css">
     <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css"> -->
     <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css"> -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
@@ -35,7 +37,7 @@
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Sidebar -->
-<nav class="w3-sidebar w3-bar-block w3-large w3-theme-l5 " id="mySidebar">
+<nav class="w3-sidebar w3-bar-block w3-large w3-theme-l5 w3-card" id="mySidebar">
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
     <i class="fa fa-remove"></i>
     </a>
@@ -49,6 +51,16 @@
     {% endfor %}    
 
     <a class="w3-bar-item w3-button w3-hover-green" href="{% url 'nueva-revision' %}">+ Nueva Revision</a>   
+
+    
+    <div >
+        <a class="w3-bar-item w3-button w3-hover-blue ayuda-btn" href="{% url 'ayuda' %}" >Ayuda</a></div>
+        <div id="demoAcc" class="w3-hide w3-theme-l4 ">
+            <a href="{% url 'actividad-1' %}"  class="w3-bar-item w3-button w3-hover-light-blue w3-padding-large" id="act1btn">Actividad 1</a>
+            <a href="{% url 'actividad-2' %}"  class="w3-bar-item w3-button w3-hover-pale-red w3-padding-large" id="act2btn">Actividad 2</a>
+            <a href="{% url 'actividad-3' %}"  class="w3-bar-item w3-button w3-hover-grey w3-padding-large" id="act3btn">Actividad 3</a>
+    </div>
+    
 </nav>
 
 
@@ -64,5 +76,18 @@
 </div>
 <script src="{% static 'SoporteRSL/js/base.js' %}"></script>
 <script src="{% static 'SoporteRSL/js/dropzone.js' %}"></script>
+<script>
+    function myAccFunc() {
+    var x = document.getElementById("demoAcc");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-blue";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace(" w3-blue", "");
+    }
+    }
+</script>
 </body>
 </html>

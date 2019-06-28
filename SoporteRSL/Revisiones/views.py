@@ -112,3 +112,39 @@ def crear_formulario(request, revision_id):
     document.save('media/'+str(revision_id)+'/Formulario de extraccion.docx')
 
     return HttpResponseRedirect('/revisiones/'+ str(revision_id))
+
+def ayuda(request):
+    revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
+    context = {
+            'revisiones':revisiones,
+        }
+
+
+    return render(request, 'SoporteRSL/ayuda.html', context)
+
+def actividad_1(request):
+
+    revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
+    context = {
+            'revisiones':revisiones,
+        }
+
+    return render(request, 'SoporteRSL/actividades/actividad_1.html', context)
+
+def actividad_2(request):
+    
+    revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
+    context = {
+            'revisiones':revisiones,
+        }
+
+    return render(request, 'SoporteRSL/actividades/actividad_2.html', context)
+
+def actividad_3(request):
+    
+    revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
+    context = {
+            'revisiones':revisiones,
+        }
+
+    return render(request, 'SoporteRSL/actividades/actividad_3.html', context)
