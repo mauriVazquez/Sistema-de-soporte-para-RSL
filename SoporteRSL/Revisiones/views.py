@@ -26,7 +26,7 @@ def nueva_revision(request):
             revision = Revision.objects.latest('pk')
 
             for x in range((int(request.POST['preguntas-TOTAL_FORMS']))):
-                if request.POST['pregunta-'+str(x)] != "":
+                if request.POST['pregunta-'+str(x)] != "BORRAR":
                     pregunta = PreguntaDeInvestigacion()
                     pregunta.revision = revision
                     pregunta.pregunta = request.POST['pregunta-'+str(x)]

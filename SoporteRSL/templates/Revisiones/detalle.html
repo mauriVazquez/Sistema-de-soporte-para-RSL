@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="w3-container w3-card">
-  <h1 class="w3-center w3-theme-l4">{{ revision.titulo }}</h1>
+<div class="w3-container w3-card cuerpo">
+  <h1 class="w3-center w3-theme-l4 titulo">{{ revision.titulo }}</h1>
 
   <article class="w3-container">
 
@@ -13,8 +13,8 @@
 
   </article>
 </div>
-<section class="w3-panel w3-card">
-  <h3 class="w3-center w3-theme-l4">Preguntas de Investigacion</h3>
+<section class="w3-panel w3-card cuerpo">
+  <h3 class="w3-center w3-theme-l4 titulo">Preguntas de Investigacion</h3>
   <div class="w3-container w3-margin-bottom">
     <ul class="w3-ul w3-margin-bottom">
       {% for pregunta in preguntas %}
@@ -24,8 +24,8 @@
   </div>
 </section>
 
-<section class="w3-panel  w3-card">
-  <h3 class="w3-center w3-theme-l4">Protocolo de busqueda</h3>
+<section class="w3-panel  w3-card cuerpo">
+  <h3 class="w3-center w3-theme-l4 titulo">Protocolo de busqueda</h3>
   <div class="w3-row w3-margin-bottom">
     <div class="w3-container w3-third w3-mobile">
       <h4>Cadena de Busqueda</h4>
@@ -60,8 +60,8 @@
 </section>
 
 
-<section class="w3-panel w3-card w3-margin-bottom">
-  <h3 class="w3-center w3-theme-l4">Investigadores</h3>
+<section class="w3-panel w3-card w3-margin-bottom cuerpo">
+  <h3 class="w3-center w3-theme-l4 titulo">Investigadores</h3>
   <div class="w3-container w3-margin-bottom">
     <ul class="w3-ul ">
       {% for investigador in investigadores %}
@@ -81,8 +81,8 @@
   </div>
 </section>
 
-<section class="w3-panel w3-card">
-  <h3 class="w3-center w3-theme-l4">Articulos</h3>
+<section class="w3-panel w3-card cuerpo">
+  <h3 class="w3-center w3-theme-l4 titulo">Articulos</h3>
   <div class="w3-container w3-margin-bottom">
     <table class="w3-table w3-border w3-striped">
       <tr>
@@ -118,13 +118,17 @@
 
 
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
 
     if ("{{ revision.estado }}" === "Actividad 1") {
-      //$("body").addClass('w3-theme-l3');
+     
+     // $(".titulo").removeClass('w3-theme-l4');
+     // $(".titulo").addClass('w3-light-blue');
+      
     }
 
-  });
+});
 
 </script>
+<script src="{% static 'Revisiones/js/detalle.js' %}"></script>
 {% endblock %}
