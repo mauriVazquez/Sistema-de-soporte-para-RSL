@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2018.css">
     <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css"> -->
     <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css"> -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     
     <link rel="stylesheet" href="{% static 'SoporteRSL/css/base.css' %}">
     
@@ -50,15 +50,15 @@
         
     {% endfor %}    
 
-    <a class="w3-bar-item w3-button w3-hover-green" href="{% url 'nueva-revision' %}">+ Nueva Revision</a>   
+    <a class="w3-bar-item w3-button w3-hover-green" href="{% url 'comenzar-revision' %}">+ Nueva Revision</a>   
 
     
     <div >
         <a class="w3-bar-item w3-button w3-hover-blue ayuda-btn" href="{% url 'ayuda' %}" >Ayuda</a></div>
         <div id="demoAcc" class="w3-hide w3-theme-l4 ">
-            <a href="{% url 'actividad-1' %}"  class="w3-bar-item w3-button w3-hover-light-blue w3-padding-large" id="act1btn">Actividad 1</a>
-            <a href="{% url 'actividad-2' %}"  class="w3-bar-item w3-button w3-hover-pale-red w3-padding-large" id="act2btn">Actividad 2</a>
-            <a href="{% url 'actividad-3' %}"  class="w3-bar-item w3-button w3-hover-grey w3-padding-large" id="act3btn">Actividad 3</a>
+            <a href="{% url 'actividad-1' %}"  class="w3-bar-item w3-button w3-hover-light-blue w3-padding-large" id="act1btn">Diseñar Revisión</a>
+            <a href="{% url 'actividad-2' %}"  class="w3-bar-item w3-button w3-hover-pale-red w3-padding-large" id="act2btn">Ejecutar Revisión</a>
+            <a href="{% url 'actividad-3' %}"  class="w3-bar-item w3-button w3-hover-grey w3-padding-large" id="act3btn">Analizar y Documentar Revisión</a>
     </div>
     
 </nav>

@@ -4,46 +4,36 @@
 {% block content %}   
     
 <div class="w3-container">
-  <h2>Nueva Revision</h2>
+  <h2>Diseñar la revision</h2>
+  {{ metadatos_form }}
   <form action="/revisiones/nueva_revision" method="post">
     {% csrf_token %}
     <div class="w3-row">
-      <a href="javascript:void(0)" onclick="ControladorTab(event,'MetaInformacion','div_meta');" id="a_meta">
-        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_meta'>Meta de informacion</div>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'Preguntas','div_preg');" id="esp_preg">
+        <div class="w3-col tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_preg' style="width:20%">Especificar preguntas de investigacion</div>
       </a>
-      <a href="javascript:void(0)" onclick="ControladorTab(event,'Preguntas','div_preg');">
-        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_preg'>Especificar preguntas de investigacion</div>
-      </a>
-      <a href="javascript:void(0)" onclick="ControladorTab(event,'protocolo','div_proto');">
-        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_proto'>Diseñar protocolo de Busqueda</div>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'protocolo','div_proto');" >
+        <div class="w3-col tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_proto' style="width:20%">Diseñar protocolo de Busqueda</div>
       </a>
       <a href="javascript:void(0)" onclick="ControladorTab(event,'Criterios','div_cri');">
-        <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_cri'>Definir criterios de seleccion y calidad</div>
+        <div class="w3-col tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_cri' style="width:20%">Definir criterios de seleccion y calidad</div>
+      </a>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'Formulario','div_for');">
+        <div class="w3-col tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_for' style="width:20%">Formulario de Extraccion de datos</div>
+      </a>
+      <a href="javascript:void(0)" onclick="ControladorTab(event,'Validacion','div_val');">
+        <div class="w3-col tablink w3-bottombar w3-hover-light-grey w3-padding" id='div_val' style="width:20%">Validacion</div>
       </a>
     </div>
 
-
-    <div id="MetaInformacion" class="w3-container city" style="display:none">
-      <p>
-        <label for="id_titulo">Titulo:</label>
-        {{ revision_form.titulo }}
-      </p>
-      <p>
-        <label for="id_meta_de_necesidad_de_informacion">Meta de necesidad de informacion:</label>
-        {{ revision_form.meta_de_necesidad_de_informacion }}
-      </p>
-      <p>
-        <label for="id_investigadores">Investigadores participantes:</label>
-        {{ revision_form.investigadores }}
-      </p>
-      <div class="w3-bar">
-        <button onclick="ControladorTab(event,'Preguntas','div_preg');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+    <div id="Preguntas" class="w3-container  city" style="display:none">
+      
+     <div class="w3-panel w3-leftbar">
+      <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
       </div>
-    </div>
-
-
-    <div id="Preguntas" class="w3-container w3-padding-16 city" style="display:none">
+      
       <h4>Preguntas de investigacion</h4>
+
       <input type="hidden" name="preguntas-TOTAL_FORMS" value="1" id="id_preguntas-TOTAL_FORMS">  
       <div class="w3-row " id="preguntas_formset">
         <div id="nuevas_preguntas">
@@ -56,52 +46,82 @@
         </div>
       </div>
       <div class="w3-bar">
-        <button onclick="ControladorTab(event,'MetaInformacion','div_meta');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
-        <button onclick="ControladorTab(event,'protocolo','div_proto');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+        <button onclick="ControladorTab(event,'protocolo','div_proto');" class="w3-button w3-right w3-green" id="sig_preg">Siguiente &raquo;</button>
       </div>
     </div>
 
 
     <div id="protocolo" class="w3-container city" style="display:none">
-      <p>
-        <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
-        {{ revision_form.cadena_de_busqueda }}
-      </p>
-      <p>
-        <label for="id_metadatos">Metadatos:</label>
-        {{ revision_form.metadatos }}
-      </p>
-      <p>
-        <label for="id_bibliotecas">bibliotecas:</label>
-        {{ revision_form.bibliotecas }}
-      </p>
-      <div class="w3-bar">
-        <button onclick="ControladorTab(event,'Preguntas','div_preg');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
-        <button onclick="ControladorTab(event,'Criterios','div_cri');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+      <div class="w3-panel w3-leftbar">
+      <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      </div>
+      <div class="w3-panel w3-leftbar">
+      <p><b>Preguntas de Investigacion:</b></p>
+        <div>
+          <ul id ="lista_preguntas"></ul>
+        </div>
+      </div>
+      <div>
+        <p>
+          <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
+          {{ revision_form.cadena_de_busqueda }}
+        </p>
+        <p>
+          <label for="id_metadatos">Metadatos:</label>
+          {{ revision_form.metadatos }}
+        </p>
+        <p>
+          <label for="id_bibliotecas">bibliotecas:</label>
+          {{ revision_form.bibliotecas }}
+        </p>
+        <div class="w3-bar">
+          <button onclick="ControladorTab(event,'Preguntas','div_preg');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
+          <button onclick="ControladorTab(event,'Criterios','div_cri');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+        </div>
       </div>
     </div>
 
-
     <div id="Criterios" class="w3-container city" style="display:none">
+      <div class="w3-panel w3-leftbar">
+      <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+      <p> <b>Protocolo de busqueda:</b></p>
+        <div class="w3-container">
+          <p> <b>Cadena de Busqueda:</b></p>
+          <div id = "insertar_cadena"></div>
+          <p> <b>Metadatos:</b></p>
+          <div >
+            <ul id = "insertar_metadatos"></ul>
+          </div>
+          <p> <b>Bibliotecas a utilizar:</b></p>
+          <div>
+            <ul id = "insertar_bibliotecas"></ul>
+          </div>
+        </div>
+      </div>
+
       <h4>Incluir criterio:</h4>
       <input type="hidden" name="criterios-TOTAL_FORMS" value="0" id="id_criterios-TOTAL_FORMS">
-        <div class="w3-container w3-margin-bottom"> 
-          <div id="nuevos_criterios" style="display:none">
+      <div class="w3-container w3-margin-bottom"> 
+        <div id="nuevos_criterios" style="display:none">
         </div>
         <div id="criterio_empty_form">
-        <label for="id_criterio-__prefix__-tipo">Tipo:</label>
-        <select name="criterio-__prefix__-tipo" id="id_criterio-__prefix__-tipo" class="w3-select w3-border">
-           <option value="IN">inclusion</option>
-           <option value="EX">exclusion</option>
-           <option value="CA">calidad</option>
-        </select>
-        <label for="id_criterios-__prefix__-descripcion">Descripcion:</label>
-        <input type="text" name="criterio-__prefix__-descripcion" maxlength="200" id="id_criterio-__prefix__-descripcion" class="w3-input w3-border w3-round"><input type="hidden" name="criterios-__prefix__-id" id="id_criterios-__prefix__-id" class="w3-input w3-border w3-round">
-      </div>
+          <label for="id_criterio-__prefix__-tipo">Tipo:</label>
+          <select name="criterio-__prefix__-tipo" id="id_criterio-__prefix__-tipo" class="w3-select w3-border">
+            <option value="IN">inclusion</option>
+            <option value="EX">exclusion</option>
+            <option value="CA">calidad</option>
+          </select>
+          <label for="id_criterios-__prefix__-descripcion">Descripcion:</label>
+          <input type="text" name="criterio-__prefix__-descripcion" maxlength="200" id="id_criterio-__prefix__-descripcion" class="w3-input w3-border w3-round">
+          <input type="hidden" name="criterios-__prefix__-id" id="id_criterios-__prefix__-id" class="w3-input w3-border w3-round">
+        </div>
         <button class="w3-button w3-hover-green w3-right w3-margin-top w3-grey" id="insertar_criterio">Insertar criterio</button>
       </div>
       <h4>Criterios</h4>
-        <div class="w3-container w3-margin-bottom">
+      <div class="w3-container w3-margin-bottom">
           <table class="w3-table w3-striped w3-border" id="tabla_criterios">
           <thead>
           <tr>
@@ -113,13 +133,100 @@
           <tbody id="body_criterios">
           </tbody>
           </table>
-        </div>
+      </div>
         <div class="w3-bar">
         <button onclick="ControladorTab(event,'protocolo','div_proto');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
+        <button onclick="ControladorTab(event,'Formulario','div_for');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
         </div>
         <input class="w3-hover-green w3-margin-top" type="submit" value="Guardar">
     </div>
+
+    
+
+    <div id="Validacion" class="w3-container city" style="display:none">
+      <div class="w3-panel w3-leftbar">
+        <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+        <p><b>Preguntas de Investigacion:</b></p>
+        <div>
+          <ul id ="lista_preguntas2"></ul>
+        </div>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+        <p><b>Criterios de calidad:</b></p>
+        <div>
+          <ul id ="lista_criterios_calidad"></ul>
+        </div>
+      </div>
+
+    </div>
   </form>
+  <div id="Formulario" class="w3-container city" style="display:none">
+      <div class="w3-panel w3-leftbar">
+        <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+        <p><b>Preguntas de Investigacion:</b></p>
+        <div>
+          <ul id ="lista_preguntas2"></ul>
+        </div>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+        <p><b>Criterios de calidad:</b></p>
+        <div>
+          <ul id ="lista_criterios_calidad"></ul>
+        </div>
+      </div>
+      <h4>Administrar Campos del formulario:</h4>
+      <input type="hidden" name="campos_form-TOTAL_FORMS" value="3" id="id_campos_form-TOTAL_FORMS">
+        <div class="w3-container w3-margin-bottom"> 
+          <div id="nuevos_campos_form" style="display:none"></div>
+          <div id="campos_form_empty_form">
+            <label for="id_campos_form-__prefix__-campo">Nuevo campo:</label>
+            <input type="text" name="campo_form-__prefix__-descripcion" maxlength="200" id="id_campo_form-__prefix__-descripcion" class="w3-input w3-border w3-round">
+            <input type="hidden" name="campos_form-__prefix__-id" id="id_campos_form-__prefix__-id">
+          </div>
+          <button type="button" class="w3-button w3-hover-green w3-right w3-margin-top w3-grey" id="insertar_campo">añadir campo</button>
+        </div>
+        
+      <h4>Esquema de formulario:</h4>
+      <div class="w3-container w3-margin-bottom">
+          <table class="w3-table w3-striped w3-border" id="tabla_campos_form">
+          <thead>
+          <tr>
+              <th>Campos</th>
+              <th></th>
+          </tr>
+          </thead>
+          <tbody id="tabla_campos_form">
+            <tr class="w3-border-top">
+              <td >Nombre del investigador</td>
+              <td > </td>
+            </tr>
+            <tr class="w3-border-top">
+              <td>PID - Titulo del articulo</td>
+              <td></td>
+            </tr>
+            <tr class="w3-border-top">
+              <td>Autores del articulo</td>
+              <td></td>
+            </tr>
+          </tbody>
+          </table>
+          <input type="hidden" name="id_revison" id="id_revision" value={{ revision.id }}>
+          <button type="button" class="w3-button w3-block w3-black w3-margin-top" id="generar_formulario">Generar formulario</button>
+      </div>
+      <div class="w3-bar">
+        <button onclick="ControladorTab(event,'Criterios','div_cri');" class="w3-button w3-left w3-light-grey">&laquo; Anterior</button>
+        <button onclick="ControladorTab(event,'Validacion','div_val');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
+      </div>
+
+    </div>
 </div>
 
 
@@ -136,4 +243,7 @@
 </div>
 
 <script src="{% static 'revisiones/js/nueva_revision.js' %}"></script>
+
+
+
 {% endblock %}

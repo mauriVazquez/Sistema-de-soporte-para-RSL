@@ -6,13 +6,7 @@ from django.forms import modelformset_factory
 class RevisionForm(forms.ModelForm):
      class Meta:
         model = Revision
-        fields = ['titulo',
-    'meta_de_necesidad_de_informacion',
-    'investigadores',
-    'cadena_de_busqueda',
-    'metadatos',
-    'bibliotecas',
-    'prueba_piloto']
+        fields = ['cadena_de_busqueda','metadatos','bibliotecas','prueba_piloto']
 
 
 class PreguntaDeInvestigacionForm(forms.ModelForm):
@@ -35,3 +29,7 @@ class ArticuloForm(forms.ModelForm):
         fields = ['titulo','archivo','leido']
 
 
+class MetadatosForm(forms.ModelForm):
+    class Meta:
+        model = Revision
+        fields = ['metadatos']
