@@ -28,15 +28,28 @@
 
     <div id="Preguntas" class="w3-container  city" style="display:none">
       
-     <div class="w3-panel w3-leftbar">
-      <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      <div class="w3-panel w3-pale-red w3-border" style="display:none" id="notificacion-preguntas">
+        <p>Usted debe especificar las preguntas de investigacion.</p>
       </div>
-      
-      <h4>Preguntas de investigacion</h4>
 
-      <input type="hidden" name="preguntas-TOTAL_FORMS" value="1" id="id_preguntas-TOTAL_FORMS">  
+     <div class="w3-panel w3-leftbar">
+      <p> <b>Meta de necesidad de informacion:</b></p><p class="w3-margin-left"> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      </div>
+
+      <h4>Preguntas de investigacion</h4>
+      <input type="hidden" name="preguntas-TOTAL_FORMS" id="id_preguntas-TOTAL_FORMS">  
       <div class="w3-row " id="preguntas_formset">
         <div id="nuevas_preguntas">
+          {% for pregunta in preguntas %}
+          <div>
+              <div class="w3-col w3-margin-bottom" style="width:94%">
+                <input type="text" name="pregunta-{{ forloop.counter }}" maxlength="150" id="pregunta-{{ forloop.counter }}" class="w3-input w3-border w3-round" value="{{pregunta.pregunta}}">
+              </div>
+              <div class="w3-col" style="width:6%">
+                <button class="w3-button w3-circle w3-red w3-right remove">-</button>
+              </div>
+          </div>
+          {% endfor %}
         </div>
         <div class="w3-col w3-margin-bottom" style="width:94%">
           <input type="text" name="pregunta-0" maxlength="150" id="pregunta-0" class="w3-input w3-border w3-round">
@@ -50,10 +63,14 @@
       </div>
     </div>
 
-
     <div id="protocolo" class="w3-container city" style="display:none">
+
+      <div class="w3-panel w3-pale-red w3-border" style="display:none" id="notificacion-protocolo">
+        <p>Usted debe completar el campo de cadena de busqueda, seleccionar almenos un metadatos y una biblioteca virtual.</p>
+      </div>
+
       <div class="w3-panel w3-leftbar">
-      <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      <p> <b>Meta de necesidad de informacion:</b></p><p class="w3-margin-left"> {{ revision.meta_de_necesidad_de_informacion }} </p>
       </div>
       <div class="w3-panel w3-leftbar">
       <p><b>Preguntas de Investigacion:</b></p>
@@ -62,14 +79,31 @@
         </div>
       </div>
       <div>
+      
         <p>
           <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
           {{ revision_form.cadena_de_busqueda }}
         </p>
+        
+        {% for metadato in metadatos%}
+          <script>
+            $(document).ready(function () {
+              seleccionarValor("id_metadatos","{{metadato.pk}}");
+
+            });
+          </script>
+        {% endfor %}
         <p>
           <label for="id_metadatos">Metadatos:</label>
           {{ revision_form.metadatos }}
         </p>
+        {% for biblioteca in bibliotecas%}
+          <script>
+            $(document).ready(function () {
+              seleccionarValor("id_bibliotecas","{{biblioteca.pk}}");
+            });
+          </script>
+        {% endfor %}
         <p>
           <label for="id_bibliotecas">bibliotecas:</label>
           {{ revision_form.bibliotecas }}
@@ -82,8 +116,11 @@
     </div>
 
     <div id="Criterios" class="w3-container city" style="display:none">
+      <div class="w3-panel w3-pale-red w3-border" style="display:none" id="notificacion-criterios">
+        <p>Usted debe especificar los criterios de seleccion y de calidad.</p>
+      </div>
       <div class="w3-panel w3-leftbar">
-      <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      <p> <b>Meta de necesidad de informacion:</b></p><p class="w3-margin-left"> {{ revision.meta_de_necesidad_de_informacion }} </p>
       </div>
 
       <div class="w3-panel w3-leftbar">
@@ -101,11 +138,14 @@
           </div>
         </div>
       </div>
-
       <h4>Incluir criterio:</h4>
-      <input type="hidden" name="criterios-TOTAL_FORMS" value="0" id="id_criterios-TOTAL_FORMS">
+      <input type="hidden" name="criterios-TOTAL_FORMS" id="id_criterios-TOTAL_FORMS">
       <div class="w3-container w3-margin-bottom"> 
         <div id="nuevos_criterios" style="display:none">
+          {% for criterio in criterios %}
+            <input type="hidden" name="id_criterio-{{ forloop.counter }}-descripcion" id="id_criterio-{{ forloop.counter }}-descripcion" value="{{criterio.descripcion}}">
+            <input type="hidden" name="id_criterio-{{ forloop.counter }}-tipo" id="id_criterio-{{ forloop.counter }}-tipo" value="{{criterio.tipo}}">
+          {% endfor %}
         </div>
         <div id="criterio_empty_form">
           <label for="id_criterio-__prefix__-tipo">Tipo:</label>
@@ -131,6 +171,10 @@
           </tr>
           </thead>
           <tbody id="body_criterios">
+            {% for criterio in criterios %}
+
+              <tr><td>{{criterio.descripcion}}</td><td>{{criterio.tipo}}</td><td id="id_criterio-{{ forloop.counter }}-"><i class="fa fa-remove borrar-linea"></i></td></tr>
+          {% endfor %}
           </tbody>
           </table>
       </div>
@@ -141,11 +185,10 @@
         <input class="w3-hover-green w3-margin-top" type="submit" value="Guardar">
     </div>
 
-    
+    <div id="Formulario" class="w3-container city" style="display:none">
 
-    <div id="Validacion" class="w3-container city" style="display:none">
       <div class="w3-panel w3-leftbar">
-        <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
+        <p> <b>Meta de necesidad de informacion:</b></p><p class="w3-margin-left"> {{ revision.meta_de_necesidad_de_informacion }} </p>
       </div>
 
       <div class="w3-panel w3-leftbar">
@@ -161,27 +204,8 @@
           <ul id ="lista_criterios_calidad"></ul>
         </div>
       </div>
-
-    </div>
-  </form>
-  <div id="Formulario" class="w3-container city" style="display:none">
-      <div class="w3-panel w3-leftbar">
-        <p> <b>Meta de necesidad de informacion:</b> {{ revision.meta_de_necesidad_de_informacion }} </p>
-      </div>
-
-      <div class="w3-panel w3-leftbar">
-        <p><b>Preguntas de Investigacion:</b></p>
-        <div>
-          <ul id ="lista_preguntas2"></ul>
-        </div>
-      </div>
-
-      <div class="w3-panel w3-leftbar">
-        <p><b>Criterios de calidad:</b></p>
-        <div>
-          <ul id ="lista_criterios_calidad"></ul>
-        </div>
-      </div>
+      
+      
       <h4>Administrar Campos del formulario:</h4>
       <input type="hidden" name="campos_form-TOTAL_FORMS" value="3" id="id_campos_form-TOTAL_FORMS">
         <div class="w3-container w3-margin-bottom"> 
@@ -194,7 +218,7 @@
           <button type="button" class="w3-button w3-hover-green w3-right w3-margin-top w3-grey" id="insertar_campo">añadir campo</button>
         </div>
         
-      <h4>Esquema de formulario:</h4>
+      <h4>Esquema del nuevo formulario:</h4>
       <div class="w3-container w3-margin-bottom">
           <table class="w3-table w3-striped w3-border" id="tabla_campos_form">
           <thead>
@@ -226,7 +250,49 @@
         <button onclick="ControladorTab(event,'Validacion','div_val');" class="w3-button w3-right w3-green">Siguiente &raquo;</button>
       </div>
 
+  </div>
+
+    <div id="Validacion" class="w3-container city" style="display:none">
+      <div class="w3-panel w3-leftbar">
+        <p> <b>Meta de necesidad de informacion:</b></p><p class="w3-margin-left"> {{ revision.meta_de_necesidad_de_informacion }} </p>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+        <p><b>Preguntas de Investigacion:</b></p>
+        <div>
+          <ul id ="lista_preguntas3"></ul>
+        </div>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+        <p><b>Criterios:</b></p>
+        <div>
+            <p><b>Criterios de seleccion:</b></p>
+            <ul id ="lista_criterios_seleccion"></ul>
+        </div>
+            <div>
+            <p><b>Criterios de calidad:</b></p>
+              <ul id ="lista_criterios_calidad2"></ul>
+        </div>
+      </div>
+
+      <div class="w3-panel w3-leftbar">
+      <p> <b>Protocolo de busqueda:</b></p>
+        <div class="w3-container">
+          <p> <b>Cadena de Busqueda:</b></p>
+          <div id = "insertar_cadena2"></div>
+          <p> <b>Metadatos:</b></p>
+          <div >
+            <ul id = "insertar_metadatos2"></ul>
+          </div>
+          <p> <b>Bibliotecas a utilizar:</b></p>
+          <div>
+            <ul id = "insertar_bibliotecas2"></ul>
+          </div>
+        </div>
+      </div>
     </div>
+  </form>
 </div>
 
 
@@ -244,6 +310,23 @@
 
 <script src="{% static 'revisiones/js/nueva_revision.js' %}"></script>
 
+<script>
+  $(document).ready(function () {
 
+    $('#id_preguntas-TOTAL_FORMS').val( 1 + {{preguntas|length}} );
+    $('#id_criterios-TOTAL_FORMS').val( 1 + {{criterios|length}} );
+    $('#id_cadena_de_busqueda').val("{{revision.cadena_de_busqueda}}");
+
+    
+
+  });
+  
+  function seleccionarValor(id_select, valor){
+
+    select = document.getElementById(id_select);
+    select.options[valor-1].selected = true;
+  }  
+
+</script>
 
 {% endblock %}

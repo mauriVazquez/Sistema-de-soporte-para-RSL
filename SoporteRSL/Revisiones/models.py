@@ -100,4 +100,3 @@ class Revision(models.Model):
     def __str__(self):
         return '%s' % (self.titulo)
 
-

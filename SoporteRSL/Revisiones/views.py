@@ -4,13 +4,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 from django.http import Http404, HttpResponseRedirect, HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
 
 from docx import Document
 from docx.shared import Inches
 import os
 
 from .models import *
-from .forms import RevisionForm, MetadatosForm
+from .forms import RevisionForm, MetadatosForm, RevisionFormInicial
 
 @login_required
 def nueva_revision(request):
@@ -22,21 +23,24 @@ def nueva_revision(request):
         if revision_form.is_valid():
 
             investigador = Investigador.objects.get(usuario__username = request.user)
-            revision_form.save()
-            revision = Revision.objects.latest('pk')
+            revision = get_object_or_404(Revision, pk=request.POST.get('id_revison',0))
+
+            PreguntaDeInvestigacion.objects.filter(revision__pk =request.POST.get('id_revison',0)).delete()
 
             for x in range((int(request.POST['preguntas-TOTAL_FORMS']))):
-                if request.POST['pregunta-'+str(x)] != "BORRAR":
+                if request.POST['pregunta-'+str(x)] != "BORRAR" and request.POST['pregunta-'+str(x)] != "":
                     pregunta = PreguntaDeInvestigacion()
                     pregunta.revision = revision
                     pregunta.pregunta = request.POST['pregunta-'+str(x)]
                     pregunta.save()
 
-            for x in range((int(request.POST['criterios-TOTAL_FORMS']))):
-                if request.POST['criterio-'+str(x)+'-descripcion'] != "BORRAR":
+            Criterio.objects.filter(revision__pk =request.POST.get('id_revison',0)).delete()
+
+            for x in range(1,(int(request.POST['criterios-TOTAL_FORMS']))):
+                if request.POST.get('id_criterio-'+str(x)+'-descripcion') != "BORRAR":
                     criterio = Criterio()
-                    criterio.descripcion = request.POST['criterio-'+str(x)+'-descripcion']
-                    criterio.tipo = request.POST['criterio-'+str(x)+'-tipo']
+                    criterio.descripcion = request.POST.get('id_criterio-'+str(x)+'-descripcion')
+                    criterio.tipo = request.POST.get('id_criterio-'+str(x)+'-tipo')
                     criterio.revision = revision
                     criterio.save()
 
@@ -56,7 +60,8 @@ def nueva_revision(request):
             'revisiones':revisiones,
             'revision_form': revision_form,
         })
-                
+
+@login_required                
 def comenzar_revision(request):
 
     if request.method == 'POST':
@@ -81,13 +86,16 @@ def comenzar_revision(request):
 
         return HttpResponseRedirect('/inicio/')
     else:
-        revision_form = RevisionForm()
+        revision_form = RevisionFormInicial()
 
     revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
-    return render(request, 'revisiones/comenzar_revision.html', {
+    context = {
         'revisiones':revisiones,
         'revision_form': revision_form,
-    })
+    }
+    print(revision_form)
+    
+    return render(request, 'revisiones/comenzar_revision.html', context)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -141,24 +149,35 @@ def detalle(request, revision_id):
 @csrf_exempt
 def crear_formulario(request, revision_id):
 
-    document = Document()
-    print(request.POST)
+    document = Document('media/Template of the Data Extraction Form.docx')
+    
     revision = Revision.objects.get(pk=revision_id)
+    
+    table = document.add_table(rows=0, cols=2)
+    table.style = 'estilo template'
 
-    #if not os.path.exists('media/'+str(revision_id)):
-    #    os.makedirs('media/'+str(revision_id))
+    for i in range(1,(int(request.POST.get('cant-campos',0))+1)):
+        if (request.POST.get('campo-'+str(i), 'campo no existente') != "BORRAR"):
+            row = table.add_row()
+            row.cells[0].text = request.POST.get('campo-'+str(i), 'campo no existente')
+            
 
-    #document.save('media/'+str(revision_id)+'/Formulario de extraccion.docx')
-    nada = "nada"
+    if not os.path.exists('media/'+str(revision_id)):
+        os.makedirs('media/'+str(revision_id))
+    
+    documento_creado = True
+
+    document.save('media/'+str(revision_id)+'/Formulario de extraccion.docx')
+    
+
     #return HttpResponseRedirect('/revisiones/'+ str(revision_id))
-    return JsonResponse({'nada': nada})
+    return JsonResponse({'documento_creado': documento_creado})
 
 def ayuda(request):
     revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
     context = {
             'revisiones':revisiones,
         }
-
 
     return render(request, 'SoporteRSL/ayuda.html', context)
 

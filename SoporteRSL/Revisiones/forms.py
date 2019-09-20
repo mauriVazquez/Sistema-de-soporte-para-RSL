@@ -2,9 +2,14 @@ from django import forms
 from .models import Revision, PreguntaDeInvestigacion, Criterio, Articulo
 from django.forms import modelformset_factory
 
+class RevisionFormInicial(forms.ModelForm):
+    class Meta:
+        model = Revision
+        fields = ['titulo','meta_de_necesidad_de_informacion','investigadores']
+
 
 class RevisionForm(forms.ModelForm):
-     class Meta:
+    class Meta:
         model = Revision
         fields = ['cadena_de_busqueda','metadatos','bibliotecas','prueba_piloto']
 
