@@ -93,7 +93,7 @@ class Revision(models.Model):
     prueba_piloto = models.BooleanField(default=False, verbose_name= "¿Se realizara prueba piloto?")
     estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default='Actividad 1')
     fecha_inicio = models.DateField(auto_now_add=True)
-
+    formulario_generico = models.BooleanField(default=False, verbose_name= "¿Se creo un formulario de extraccion de datos?")
     class Meta:
         verbose_name_plural="revisiones"
 

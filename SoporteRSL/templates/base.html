@@ -10,8 +10,10 @@
     <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css"> -->
     <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css"> -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
-    
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link rel="stylesheet" href="{% static 'SoporteRSL/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'SoporteRSL/css/multi-select.css' %}">
+    <link rel="stylesheet" href="{% static 'Revisiones/css/iconos.css' %}">
     
     <title>{% block title %}Sistema de soporte para RSL{% endblock %}</title>
 </head>
@@ -46,7 +48,7 @@
 
     {% for revision in revisiones %}              
         
-           <a class="w3-bar-item w3-button w3-hover-light-blue" href="{% url 'detalle' revision.pk %}"> > {{ revision.titulo }}</a>
+           <a class="w3-bar-item w3-button w3-hover-light-blue boton-revision" href="{% url 'detalle' revision.pk %}"> > {{ revision.titulo }}</a>
         
     {% endfor %}    
 
@@ -76,6 +78,8 @@
 </div>
 <script src="{% static 'SoporteRSL/js/base.js' %}"></script>
 <script src="{% static 'SoporteRSL/js/dropzone.js' %}"></script>
+<script src="{% static 'SoporteRSL/js/jquery.multi-select.js' %}"></script>
+
 <script>
     function myAccFunc() {
     var x = document.getElementById("demoAcc");
@@ -88,6 +92,12 @@
         x.previousElementSibling.className.replace(" w3-blue", "");
     }
     }
+
+
+</script>
+
+<script>
+
 </script>
 </body>
 </html>

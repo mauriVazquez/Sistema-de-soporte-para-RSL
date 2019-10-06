@@ -28,11 +28,23 @@ def nueva_revision(request):
             PreguntaDeInvestigacion.objects.filter(revision__pk =request.POST.get('id_revison',0)).delete()
 
             for x in range((int(request.POST['preguntas-TOTAL_FORMS']))):
-                if request.POST['pregunta-'+str(x)] != "BORRAR" and request.POST['pregunta-'+str(x)] != "":
+                if request.POST.get('pregunta-'+str(x),False) != "BORRAR" and request.POST.get('pregunta-'+str(x),False) != "":
                     pregunta = PreguntaDeInvestigacion()
                     pregunta.revision = revision
-                    pregunta.pregunta = request.POST['pregunta-'+str(x)]
+                    pregunta.pregunta = request.POST.get('pregunta-'+str(x),False)
                     pregunta.save()
+
+            revision.metadatos.clear()
+            lista_metadatos = request.POST.getlist('metadatos')             
+            for metadato in lista_metadatos:
+                revision.metadatos.add(Metadato.objects.get(pk=metadato))
+            
+            lista_bibliotecas = request.POST.getlist('bibliotecas')
+            revision.bibliotecas.clear()
+            for biblioteca in lista_bibliotecas:
+                revision.bibliotecas.add(Biblioteca.objects.get(pk=biblioteca))
+            
+            revision.cadena_de_busqueda = request.POST['cadena_de_busqueda']
 
             Criterio.objects.filter(revision__pk =request.POST.get('id_revison',0)).delete()
 
@@ -43,6 +55,8 @@ def nueva_revision(request):
                     criterio.tipo = request.POST.get('id_criterio-'+str(x)+'-tipo')
                     criterio.revision = revision
                     criterio.save()
+
+            revision.save()
 
             modificacion = Modificacion()
             modificacion.revision = revision
@@ -65,8 +79,6 @@ def nueva_revision(request):
 def comenzar_revision(request):
 
     if request.method == 'POST':
-        
-        print(request.POST)
         
         revision = Revision()
         investigador = Investigador.objects.get(usuario__username = request.user)
@@ -93,7 +105,7 @@ def comenzar_revision(request):
         'revisiones':revisiones,
         'revision_form': revision_form,
     }
-    print(revision_form)
+    
     
     return render(request, 'revisiones/comenzar_revision.html', context)
 
@@ -168,8 +180,8 @@ def crear_formulario(request, revision_id):
     documento_creado = True
 
     document.save('media/'+str(revision_id)+'/Formulario de extraccion.docx')
-    
-
+    revision.formulario_generico = True
+    revision.save()
     #return HttpResponseRedirect('/revisiones/'+ str(revision_id))
     return JsonResponse({'documento_creado': documento_creado})
 

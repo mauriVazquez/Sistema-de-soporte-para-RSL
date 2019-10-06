@@ -1,6 +1,6 @@
-// @ts-nocheck
 
-function ControladorTab(event, id, div_id){
+
+function ControladorTab(event, id){
   var i, x, tablinks;
   event.preventDefault();
   x = document.getElementsByClassName("city");
@@ -8,97 +8,58 @@ function ControladorTab(event, id, div_id){
     x[i].style.display = "none";
   }
   tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
+  for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" w3-border-black", "");
   }
 
-  if(id == "protocolo"){
-    AgregarPreguntas("lista_preguntas","div_preg","notificacion-preguntas");
-  }
-  if(id == "Formulario"){
-    AgregarPreguntas("lista_preguntas2","div_preg","notificacion-preguntas");
-    AgregarCriteriosCalidad();
-
+  entradas = document.getElementsByClassName("entrada");
+  for (i = 0; i < entradas.length; i++) {
+    entradas[i].style.display = "none";
   }
 
-  if(id == "Validacion"){
-    AgregarPreguntas("lista_preguntas3","div_preg","notificacion-preguntas");
-    AgregarCriterios();
-    AgregarProtocoloDeBusqueda();
-  }
-
-  if(id == "Criterios"){
-
-    while (document.getElementById("insertar_cadena").firstChild){
-      document.getElementById("insertar_cadena").removeChild(document.getElementById("insertar_cadena").firstChild);
-    }
-    while (document.getElementById("insertar_metadatos").firstChild){
-      document.getElementById("insertar_metadatos").removeChild(document.getElementById("insertar_metadatos").firstChild);
-    }
-    while (document.getElementById("insertar_bibliotecas").firstChild){
-      document.getElementById("insertar_bibliotecas").removeChild(document.getElementById("insertar_bibliotecas").firstChild);
-    }
-
-
-    if(document.getElementById("id_cadena_de_busqueda").value != ""){
-      var node = document.createElement("p");
-      var textnode = document.createTextNode(document.getElementById("id_cadena_de_busqueda").value);
-      node.appendChild(textnode);
-      node.className = "w3-margin-left" ;                               
-      document.getElementById("insertar_cadena").appendChild(node);
-    }
-
-    select_metadatos = document.getElementById("id_metadatos");
-    haymetadato = false;
-    for(i=0;i< select_metadatos.options.length; i++){
-      if (select_metadatos.options[i].selected){
-        var node = document.createElement("LI");              
-        var textnode = document.createTextNode(select_metadatos.options[i].text);   
-        node.appendChild(textnode);                              
-        document.getElementById("insertar_metadatos").appendChild(node);
-        haymetadato = true;
-      }
-    }
-
-    select_bibliotecas = document.getElementById("id_bibliotecas");
-    var haybiblioteca = false;
-    for(i=0;i< select_bibliotecas.options.length; i++){
-      if (select_bibliotecas.options[i].selected){
-        var node = document.createElement("LI");              
-        var textnode = document.createTextNode(select_bibliotecas.options[i].text);   
-        node.appendChild(textnode);                              
-        document.getElementById("insertar_bibliotecas").appendChild(node);
-        var haybiblioteca = true
-      }
-    }
-    
-    if ((document.getElementById("id_cadena_de_busqueda").value == "") || !haybiblioteca || !haymetadato){
-      document.getElementById("notificacion-protocolo").style.display = "block";
-      document.getElementById("div_proto").classList.remove("w3-border-green", "w3-border-red");
-      document.getElementById("div_proto").className += " w3-border-red";
-    }
-    else{
-      document.getElementById("notificacion-protocolo").style.display = "none";
-      document.getElementById("div_proto").classList.remove("w3-border-red", "w3-border-green");
-      document.getElementById("div_proto").className += " w3-border-green";
-    }
-    
+  switch(id){
+    case "protocolo":
+        AgregarPreguntas();
+        document.getElementById("div_preguntas").style.display = "block";
+        break;
+    case "Formulario":
+        AgregarPreguntas();
+        AgregarProtocoloDeBusqueda();
+        AgregarCriterios();
+        document.getElementById("div_preguntas").style.display = "block";
+        document.getElementById("div_criterios_calidad").style.display = "block";
+        break;
+    case "Criterios":
+        AgregarPreguntas();
+        AgregarProtocoloDeBusqueda();
+        document.getElementById("div_protocolo_busqueda").style.display = "block";
+        break;
+    case "Validacion":
+        AgregarPreguntas();
+        AgregarCriterios();
+        AgregarProtocoloDeBusqueda();
+        document.getElementById("div_preguntas").style.display = "block";
+        document.getElementById("div_protocolo_busqueda").style.display = "block";
+        document.getElementById("div_criterios_seleccion").style.display = "block";
+        document.getElementById("div_criterios_calidad").style.display = "block";
+        break;
   }
 
   document.getElementById(id).style.display = "block";
-  document.getElementById(div_id).className += " w3-border-black";
-}
+  event.currentTarget.className += " w3-border-black";
 
+}
+document.getElementById("esp_preg").click();
 function AgregarProtocoloDeBusqueda(){
 
-  while (document.getElementById("insertar_cadena2").firstChild){
-    document.getElementById("insertar_cadena2").removeChild(document.getElementById("insertar_cadena2").firstChild);
+  while (document.getElementById("insertar_cadena").firstChild){
+    document.getElementById("insertar_cadena").removeChild(document.getElementById("insertar_cadena").firstChild);
   }
-  while (document.getElementById("insertar_metadatos2").firstChild){
-    document.getElementById("insertar_metadatos2").removeChild(document.getElementById("insertar_metadatos2").firstChild);
+  while (document.getElementById("insertar_metadatos").firstChild){
+    document.getElementById("insertar_metadatos").removeChild(document.getElementById("insertar_metadatos").firstChild);
   }
-  while (document.getElementById("insertar_bibliotecas2").firstChild){
-    document.getElementById("insertar_bibliotecas2").removeChild(document.getElementById("insertar_bibliotecas2").firstChild);
+  while (document.getElementById("insertar_bibliotecas").firstChild){
+    document.getElementById("insertar_bibliotecas").removeChild(document.getElementById("insertar_bibliotecas").firstChild);
   }
 
   if(document.getElementById("id_cadena_de_busqueda").value != ""){
@@ -106,7 +67,7 @@ function AgregarProtocoloDeBusqueda(){
     var textnode = document.createTextNode(document.getElementById("id_cadena_de_busqueda").value);
     node.appendChild(textnode);
     node.className = "w3-margin-left" ;                               
-    document.getElementById("insertar_cadena2").appendChild(node);
+    document.getElementById("insertar_cadena").appendChild(node);
   }
 
   select_metadatos = document.getElementById("id_metadatos");
@@ -116,7 +77,7 @@ function AgregarProtocoloDeBusqueda(){
       var node = document.createElement("LI");              
       var textnode = document.createTextNode(select_metadatos.options[i].text);   
       node.appendChild(textnode);                              
-      document.getElementById("insertar_metadatos2").appendChild(node);
+      document.getElementById("insertar_metadatos").appendChild(node);
       haymetadato = true;
     }
   }
@@ -128,7 +89,7 @@ function AgregarProtocoloDeBusqueda(){
       var node = document.createElement("LI");              
       var textnode = document.createTextNode(select_bibliotecas.options[i].text);   
       node.appendChild(textnode);                              
-      document.getElementById("insertar_bibliotecas2").appendChild(node);
+      document.getElementById("insertar_bibliotecas").appendChild(node);
       var haybiblioteca = true
     }
   }
@@ -145,42 +106,50 @@ function AgregarProtocoloDeBusqueda(){
   }
 }
 
-function AgregarPreguntas(id,div_id,noti_id){
+function AgregarPreguntas(){
    cant_preguntas = document.getElementById("nuevas_preguntas").childElementCount;
     var str = "pregunta-";
-    while (document.getElementById(id).firstChild) {
-      document.getElementById(id).removeChild(document.getElementById(id).firstChild);
+
+    while (document.getElementById("lista_preguntas").firstChild) {
+      document.getElementById("lista_preguntas").removeChild(document.getElementById("lista_preguntas").firstChild);
     }
+
     if( document.getElementById(str.concat("0")).value != "" || cant_preguntas > 0){
       for (i =1; i <= cant_preguntas; i++){
-        if(document.getElementById(str.concat(i)).value != "BORRAR"){
+        if(document.getElementById(str.concat(i)).value != "BORRAR" && document.getElementById(str.concat(i)).value != "" ){
           var node = document.createElement("LI");              
           var textnode = document.createTextNode(document.getElementById(str.concat(i)).value);   
           node.appendChild(textnode);                              
-          document.getElementById(id).appendChild(node); 
+          document.getElementById("lista_preguntas").appendChild(node); 
         }
       }
       if( document.getElementById(str.concat("0")).value != ""){
       var node = document.createElement("LI");              
       var textnode = document.createTextNode(document.getElementById(str.concat("0")).value);   
       node.appendChild(textnode);                              
-      document.getElementById(id).appendChild(node);
+      document.getElementById("lista_preguntas").appendChild(node);
       }
-      document.getElementById(noti_id).style.display = "none";
-      document.getElementById(div_id).classList.remove("w3-border-red", "w3-border-green");
-      document.getElementById(div_id).className += " w3-border-green";
+      document.getElementById("notificacion-preguntas").style.display = "none";
+      document.getElementById("esp_preg").classList.remove("w3-border-red", "w3-border-green");
+      document.getElementById("esp_preg").className += " w3-border-green";
     }
     else{
-      document.getElementById(noti_id).style.display = "block";
-      document.getElementById(div_id).classList.remove("w3-border-green", "w3-border-red");
-      document.getElementById(div_id).className += " w3-border-red";
+      document.getElementById("notificacion-preguntas").style.display = "block";
+      document.getElementById("esp_preg").classList.remove("w3-border-green", "w3-border-red");
+      document.getElementById("esp_preg").className += " w3-border-red";
     }
 }
 
 function AgregarCriterios(){
   var tabla = document.getElementById("tabla_criterios");
-  while (document.getElementById("lista_criterios_calidad2").firstChild) {
-    document.getElementById("lista_criterios_calidad2").removeChild(document.getElementById("lista_criterios_calidad2").firstChild);
+  while (document.getElementById("lista_criterios_calidad").firstChild) {
+    document.getElementById("lista_criterios_calidad").removeChild(document.getElementById("lista_criterios_calidad").firstChild);
+  }
+  while (document.getElementById("lista_criterios_inclusion").firstChild) {
+    document.getElementById("lista_criterios_inclusion").removeChild(document.getElementById("lista_criterios_inclusion").firstChild);
+  }
+  while (document.getElementById("lista_criterios_exclusion").firstChild) {
+    document.getElementById("lista_criterios_exclusion").removeChild(document.getElementById("lista_criterios_exclusion").firstChild);
   }
   if(tabla.rows.length == 1){
     document.getElementById("notificacion-criterios").style.display = "block";
@@ -194,9 +163,13 @@ function AgregarCriterios(){
         var textnode = document.createTextNode(tabla.rows[i].cells[0].innerHTML);   
         node.appendChild(textnode);
         if(tabla.rows[i].cells[1].innerHTML == "CA"){
-          document.getElementById("lista_criterios_calidad2").appendChild(node);
+          document.getElementById("lista_criterios_calidad").appendChild(node);
         }else{
-          document.getElementById("lista_criterios_seleccion").appendChild(node);
+          if(tabla.rows[i].cells[1].innerHTML == "EX"){
+            document.getElementById("lista_criterios_exclusion").appendChild(node);
+          }else{
+            document.getElementById("lista_criterios_inclusion").appendChild(node);
+          }
         }
       }
     }
@@ -204,34 +177,6 @@ function AgregarCriterios(){
     document.getElementById("div_cri").classList.remove("w3-border-red", "w3-border-green");
     document.getElementById("div_cri").className += " w3-border-green";
   }
-}
-
-function AgregarCriteriosCalidad(){
-
-  var tabla = document.getElementById("tabla_criterios");
-  while (document.getElementById("lista_criterios_calidad").firstChild) {
-    document.getElementById("lista_criterios_calidad").removeChild(document.getElementById("lista_criterios_calidad").firstChild);
-  }
-  if(tabla.rows.length == 1){
-    document.getElementById("notificacion-criterios").style.display = "block";
-    document.getElementById("div_cri").classList.remove("w3-border-green", "w3-border-red");
-    document.getElementById("div_cri").className += " w3-border-red";
-  }else{
-    for(i=1; i<tabla.rows.length; i++){
-      if(tabla.rows[i].cells[1].innerHTML == "CA"){
-        if( tabla.rows[i].cells[0].innerHTML !="BORRAR")
-        var node = document.createElement("LI");              
-        var textnode = document.createTextNode(tabla.rows[i].cells[0].innerHTML);   
-        node.appendChild(textnode);
-        document.getElementById("lista_criterios_calidad").appendChild(node);
-      }
-    }
-
-    document.getElementById("notificacion-criterios").style.display = "none";
-    document.getElementById("div_cri").classList.remove("w3-border-red", "w3-border-green");
-    document.getElementById("div_cri").className += " w3-border-green";
-
-  }    
 }
 
 function extraerCampos(){
@@ -244,34 +189,30 @@ function extraerCampos(){
   return campos;
 }
 
-$(document).ready(function () {
+function nuevaPregunta(e){
+  e.preventDefault();
+  var form_idx = $('#id_preguntas-TOTAL_FORMS').val();
 
-  $('#esp_preg').click();
+  $('#nuevas_preguntas').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
 
-  $('#add').click(function(e){
-    e.preventDefault();
+  $('#pregunta-'+form_idx+'').val($('#pregunta-0').val());
+  $('#pregunta-0').val("");
 
-    var form_idx = $('#id_preguntas-TOTAL_FORMS').val();
+  $('#id_preguntas-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+  
+};
 
-    $('#nuevas_preguntas').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+function borrarPregunta(e){
+  e.currentTarget.parentElement.parentElement.firstElementChild.firstElementChild.value = "BORRAR";
+  e.currentTarget.parentElement.parentElement.style.display = 'none'; 
+}
 
-    $('#pregunta-'+form_idx+'').val($('#pregunta-0').val());
-    $('#pregunta-0').val("");
+$(document).ready(function (){
 
-    $('#id_preguntas-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-    
-  });
-
-  $(document).on('click', '.remove', function(e) {
-    e.preventDefault();
-      
-    $(this).parent().parent().find('input').val("BORRAR");
-    //var form_idx = $('#id_preguntas-TOTAL_FORMS').val();
-    //$('#id_preguntas-TOTAL_FORMS').val(parseInt(form_idx) - 1);
-    $(this).parent().parent().hide()
-  });
+ 
 
  $('#insertar_criterio').click(function(e){
+
     var form_idx = $('#id_criterios-TOTAL_FORMS').val();
     e.preventDefault();
     if($('#id_criterio-__prefix__-descripcion').val($('#id_criterio-__prefix__-descripcion').val()) != "" ){
@@ -310,7 +251,6 @@ $(document).ready(function () {
 
  $(document).on('click', '.borrar-linea', function(e) {
     e.preventDefault();
-
     //$('#'+$(this).parent().attr('id')+'div').hide();
      
 
@@ -318,6 +258,10 @@ $(document).ready(function () {
     //$('#id_criterios-TOTAL_FORMS').val(parseInt(form_idx) - 1);
     $(this).parent().parent().hide();
     $(this).parent().parent().children().first().text("BORRAR");
+    
+    if($('#'+$(this).parent().attr('id')+'descripcion').length){
+      $('#'+$(this).parent().attr('id')+'descripcion').attr('value', 'BORRAR')
+    }
     
 });
 
@@ -332,6 +276,9 @@ $('#generar_formulario').click(function(e){
     processData: false,  // tell jQuery not to process the data
     contentType: false,   // tell jQuery not to set contentType
   });
+
+  $('#notificacion-formulario').css({ display: "block" });
+  $('#div_val').removeAttr("disabled");
 
 })
 

@@ -1,0 +1,20 @@
+1- Interfaz de primera actividad 
+    1- acomodar formulario
+    5- en protocolo de busqueda cambiar la manera de seleccionar metadatos.
+        1- como verga funciona el select de django?
+    6- en formulario agregar una columna extra a la tabla para descripcion de campo.
+
+2- sacar el boton guardar afuera, para poder guardar en cualquier momento, quitar el error de not focused.
+3- verificar que se carguen los datos correctamente.
+    1- ver una buena forma de hacerlo
+    2- que se guarden correctamente las modificiaciones, o analizar en django donde se encuentran.
+
+4- añadir botones flotantes para funcionalidades de borrado, donde estoy? y demas.
+    nota: recordar que donde estoy? va a ser un modal, que te indique en que parte de la revision estas, pudiendo ver la imagen.
+
+6- rellenar las actividades, para mostrar todo el proceso de revision.
+7- que funcione el manejo de usuarios de login, logout y para modificar datos del usuario.
+8- hacer un sing in
+9- mejorar el template de inicio, que muestre tabla, y demas objetos
+10- hacer una pagina principal.
+11- añadir roles a los investigadores, para que el que crea un proyecto sea el unico con capacidad para agregar gente al mismo, y tambien para borrar el proyecto.

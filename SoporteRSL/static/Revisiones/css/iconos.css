@@ -1,0 +1,39 @@
+  .WorkProductUse {
+    background: url('../../SoporteRSL/img/workproductusesinfondo.png');
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+  }
+
+  .WorkProduct {
+    background: url('../../SoporteRSL/img/workproductsinfondo.png');
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+  }
+
+  .Task {
+    background: url('../../SoporteRSL/img/Taskusesinfondo.png');
+    background-repeat: no-repeat;
+    background-size: 25px 22px;
+    height: 22px;
+    width: 25px;
+    display: inline-block;
+  }
+  .WorkDefinition {
+    background: url('../../SoporteRSL/img/WorkDefinitionsinfondo.png');
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+  }
+
+  .icon-right-text{
+    display: inline-block;
+    vertical-align: bottom;
+  }
