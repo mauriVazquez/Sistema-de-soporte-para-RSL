@@ -116,34 +116,19 @@
 
       <div id="protocolo" class="w3-container city w3-animate-left" style="display:none">
         <div class="w3-panel w3-pale-red w3-border" style="display:none" id="notificacion-protocolo">
-          <p>Usted debe completar el campo de cadena de busqueda, seleccionar almenos un metadatos y una biblioteca virtual.</p>
+                     <p>Usted debe completar el campo de cadena de busqueda, seleccionar almenos un metadatos y una biblioteca virtual.</p>
         </div>
         <h4>Protocolo de busqueda</h4>
           <p>
             <label for="id_cadena_de_busqueda">Cadena de busqueda:</label>
             {{ revision_form.cadena_de_busqueda }}
           </p>
-          {% for metadato in metadatos%}
-            <script>
-              $(document).ready(function () {
-                seleccionarValor("id_metadatos","{{metadato.pk}}");
-
-              });
-            </script>
-          {% endfor %}
 
           <p>
             
             {{ revision_form.metadatos }}
           </p>
 
-          {% for biblioteca in bibliotecas%}
-            <script>
-              $(document).ready(function () {
-                seleccionarValor("id_bibliotecas","{{biblioteca.pk}}");
-              });
-            </script>
-          {% endfor %}
           <p>
             
             {{ revision_form.bibliotecas }}
@@ -297,13 +282,13 @@
 
     $("#id_metadatos").multiSelect({
       selectableHeader: "<div class='custom-header' style='display: block-inline'>Metadatos seleccionables</div>",
-      selectionHeader: "<div class='custom-header'>Metadatos seleccionados</div>"
+     selectionHeader: "<div class='custom-header'>Metadatos seleccionados</div>"
     });
 
-    //$("#id_bibliotecas").multiSelect({
-      //selectableHeader: "<div class='custom-header' style='display: block-inline'>Bibliotecas seleccionables</div>",
-      //selectionHeader: "<div class='custom-header'>Bibliotecas seleccionadas</div>"
-    //});
+    $("#id_bibliotecas").multiSelect({
+      selectableHeader: "<div class='custom-header' style='display: block-inline'>Bibliotecas seleccionables</div>",
+      selectionHeader: "<div class='custom-header'>Bibliotecas seleccionadas</div>"
+    });
 
 
 

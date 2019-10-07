@@ -80,6 +80,8 @@ def comenzar_revision(request):
 
     if request.method == 'POST':
         
+        print(request.POST)
+        
         revision = Revision()
         investigador = Investigador.objects.get(usuario__username = request.user)
 
@@ -127,12 +129,10 @@ class RevisionCreateView(CreateView):
 def detalle(request, revision_id):
     try:
         revisiones = Revision.objects.filter(investigadores__usuario__pk = request.user.pk)
-        
-        revision_form = RevisionForm()
         revision = Revision.objects.get(pk=revision_id)
+        revision_form = RevisionForm(instance=revision)
+        
         investigadores = Investigador.objects.filter(revision__pk = revision_id)
-        bibliotecas = Biblioteca.objects.filter(revision__pk = revision_id)
-        metadatos = Metadato.objects.filter(revision__pk = revision_id)
         preguntas = PreguntaDeInvestigacion.objects.filter(revision__pk = revision_id)
         criterios = Criterio.objects.filter(revision__pk = revision_id)
         articulos = Articulo.objects.filter(revision__pk = revision_id)
@@ -140,8 +140,6 @@ def detalle(request, revision_id):
             'revisiones':revisiones,
             'revision': revision,
             'investigadores': investigadores,
-            'bibliotecas': bibliotecas,
-            'metadatos': metadatos,
             'articulos': articulos,
             'preguntas': preguntas,
             'criterios': criterios,

@@ -1,8 +1,8 @@
 1- Interfaz de primera actividad 
     1- acomodar formulario
-    5- en protocolo de busqueda cambiar la manera de seleccionar metadatos.
-        1- como verga funciona el select de django?
     6- en formulario agregar una columna extra a la tabla para descripcion de campo.
+    7- validacion
+    8- propuesta de mejora.
 
 2- sacar el boton guardar afuera, para poder guardar en cualquier momento, quitar el error de not focused.
 3- verificar que se carguen los datos correctamente.

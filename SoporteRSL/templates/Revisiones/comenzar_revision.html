@@ -1,8 +1,5 @@
-{% extends '../base.html' %}
-{% load static %}
+{% extends '../base.html' %} {% load static %} {% block content %}
 
-{% block content %}   
-    
 <div class="w3-container">
   <h2>Comenzar una nuevo proyecto de revision</h2>
   <form action="/revisiones/comenzar_revision" method="post">
@@ -14,7 +11,9 @@
         {{ revision_form.titulo }}
       </p>
       <p>
-        <label for="id_meta_de_necesidad_de_informacion">Meta de necesidad de informacion:</label>
+        <label for="id_meta_de_necesidad_de_informacion"
+          >Meta de necesidad de informacion:</label
+        >
         {{ revision_form.meta_de_necesidad_de_informacion }}
       </p>
       <p>
@@ -22,7 +21,7 @@
         {{ revision_form.investigadores }}
       </p>
     </div>
-     <input class="w3-hover-green w3-margin-top" type="submit" value="Guardar">
+    <input class="w3-hover-green w3-margin-top" type="submit" value="Guardar" />
   </form>
 </div>
 
